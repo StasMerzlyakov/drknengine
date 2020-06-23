@@ -1,0 +1,10 @@
+{
+  "name": "drknengine",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "spectre.css": "^0.5.8",
+    "vue": "^2.6.11",
+	"@svgdotjs/svg.js": "3.0.16"
+  }
+ }
