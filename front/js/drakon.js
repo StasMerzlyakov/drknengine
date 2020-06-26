@@ -45,7 +45,11 @@ SVG.VLine = class extends SVG.Line {
     } */
 
     create(x, y, height) {
+
         return this.attr({
+            x : x,
+            y : y,
+            height: height,
             x1: x,
             x2: x,
             y1: y,
@@ -63,26 +67,27 @@ SVG.VLine = class extends SVG.Line {
         return this */
     }
 
-   /* move(x, y){
-        this.settings.x = x
-        this.settings.y = y
-        let st = this.settings
-        this.line.plot(st.x, st.y, st.x, st.y + st.height)
+    plot(x, y, height) {
+        super.plot(x,y, x, y+height)
+    }
+
+    move(x, y){
+        this.x = x
+        this.y = y
+        this.plot(x, y, this.height)
         return this
     }
 
-    resize(ds) {
-        this.settings.heigth +=ds
-        let st = this.settings
-        this.line.plot(st.x, st.y, st.x, st.y + st.height)
+    resize(dh) {
+        this.height = this.height + dh
+        this.plot(this.x, this.y, this.height)
         return this
     }
-    height(heigth) {
-        this.settings.size =heigth
-        let st = this.settings
-        this.line.plot(st.x, st.y, st.x, st.y + st.height)
+    extend(heigth) {
+        this.height = heigth
+        this.plot(this.x, this.y, this.height)
         return this
-    } */
+    }
 
 };
 

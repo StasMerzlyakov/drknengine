@@ -4,7 +4,7 @@
   <title>SVG.js</title>
 	<link rel="stylesheet" href="css/style.css">
   <!-- <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script> -->
-	
+
 </head>
 <body>
 	<div id="canvas"></div>
@@ -15,13 +15,14 @@
 <script type="text/javascript" charset="utf-8">
 	/* create nested svg element */
 
-
 	var draw = SVG().addTo('#canvas').size('100%', '100%')
 	//draw.vline(10,10, 50)
 	// var rounded = draw.rounded(200, 100)
 	var vline = draw.vline(10,10,100).stroke({ width: 1, color: '#000000' })
 	//SVG().addTo('body')
 	//draw.vline('100%')
+
+	vline.move(40,40)
 </script>
 
 </html>
