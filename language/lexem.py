@@ -10,38 +10,49 @@ tokens = (
     # DRAKON 
     'ACTIONS', 'SHELFS', 'SKEWERS',
 
-    'ASSIGNMENT', 'COLON', 'TYPE', 'CBLOCK', 'INOUT', 'NUMBER', 'EXPRESSION',
+    'ASSIGNMENT', 'COLON', 'TYPE', 'CBLOCK', 'IN', 'OUT', 'NUMBER', 'EXPRESSION', 'ID'
 
     # EXPRESSIONS
     'TRUE', 'FALSE', 'LPARENT', 'RPAREN',
     'EOL',
-    'NAME',
     'SPACE',
-    'LINE'
+    'WORD'
 )
 
-t_TITLE=r'TITLE'
-t_CLIB=r'CLIB'
-t_DESCRIPTION=r'DESCRIPTION'
-t_VARIABLES=r'VARIABLES'
-t_INT=r'INT'
-t_BOOL=r'BOOL'
-t_INOUT=r'IN|OUT'
-t_ACTIONS=r'ACTIONS'
-t_SHELFS=r'SHELFS'
-t_SKEWERS=r'SKEWERS'
+reserved = {
+    'TITLE' : 'TITLE',
+    'CLIB' : 'CLIB',
+    'DESCRIPTION' : 'DESCRIPTION',
+    'VARIABLES' : 'VARIABLES',
+    'INT': 'INT',
+    'BOOL': 'BOOL',
+    'IN': 'IN',
+    'OUT': 'OUT',
+    'ACTIONS': 'ACTIONS',
+    'SHELFS': 'SHELFS',
+    'SKEWERS': 'SKEWERS',
+    'TYPE': 'TYPE',
+    'CBLOCK':'CBLOCK',
+    'EXPRESSION':'EXPRESSION',
+    'TRUE':'TRUE',
+    'FALSE':'FALSE'
+}
+
+
 t_ASSIGNMENT=r':='
 t_COLON=r':'
-t_TYPE=r'TYPE'
-t_CBLOCK=r'CBLOCK'
-t_EOL = r'\n'
-t_LINE = r'[^: \n][^\n]+'
-t_EXPRESSION=r'EXPRESSION'
-t_TRUE=r'TRUE'
-t_FALSE=r'FALSE'
-t_NUMBER = r'\d+'
+# контектно зависимые значения
+#t_NUMBER = r'\d+'
+#t_ID = r'[A-Z][A-Za-z0-9_@]*'
 t_SPACE = r'[ ]+'
-t_NAME = r'[A-Z][A-Za-z0-9_@]*'
+t_EOL = r'\n'
+
+def t_WORD(t):
+    r'[^: \n]+'
+    if t.value in reserved:
+        t.type = reserved[t.value]
+    return t
+
 
 
 

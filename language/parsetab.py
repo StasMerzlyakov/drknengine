@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ACTIONS ASSIGNMENT BOOL CBLOCK CLIB COLON DESCRIPTION EOL EXPRESSION FALSE INOUT INT INTOUT LINE LPARENT NAME NUMBER RPAREN SHELFS SKEWERS SPACE TITLE TRUE TYPE VARIABLESdesc : TITLE COLON SPACE LINE EOLclib : CLIB COLON SPACE LINE EOLprogram : desc clib'
+_lr_signature = 'ACTIONS ASSIGNMENT BOOL CBLOCK CLIB COLON DESCRIPTION EOL EXPRESSION FALSE IDTRUE IN INT INTOUT LPARENT NUMBER OUT RPAREN SHELFS SKEWERS SPACE TITLE TYPE VARIABLES WORDprogram : desc clibdesc : TITLE COLON SPACE line EOLclib : CLIB COLON SPACE WORD EOLline : WORDline : WORD slinesline : SPACE line'
     
-_lr_action_items = {'COLON':([2,],[3,]),'$end':([1,6,],[0,-1,]),'EOL':([5,],[6,]),'LINE':([4,],[5,]),'TITLE':([0,],[2,]),'SPACE':([3,],[4,]),}
+_lr_action_items = {'EOL':([9,10,14,15,16,],[12,-4,-5,17,-6,]),'WORD':([7,11,13,],[10,15,10,]),'COLON':([1,6,],[4,8,]),'TITLE':([0,],[1,]),'CLIB':([2,12,],[6,-2,]),'SPACE':([4,8,10,],[7,11,13,]),'$end':([3,5,17,],[0,-1,-3,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'desc':([0,],[1,]),}
+_lr_goto_items = {'program':([0,],[3,]),'line':([7,13,],[9,16,]),'desc':([0,],[2,]),'clib':([2,],[5,]),'sline':([10,],[14,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,8 +26,11 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> desc","S'",1,None,None,None),
-  ('desc -> TITLE COLON SPACE LINE EOL','desc',5,'p_desc','parser.py',7),
-  ('clib -> CLIB COLON SPACE LINE EOL','clib',5,'p_clib','parser.py',10),
-  ('program -> desc clib','program',2,'p_program','parser.py',13),
+  ("S' -> program","S'",1,None,None,None),
+  ('program -> desc clib','program',2,'p_program','parser.py',8),
+  ('desc -> TITLE COLON SPACE line EOL','desc',5,'p_desc','parser.py',13),
+  ('clib -> CLIB COLON SPACE WORD EOL','clib',5,'p_clib','parser.py',18),
+  ('line -> WORD','line',1,'p_line_short','parser.py',23),
+  ('line -> WORD sline','line',2,'p_line_long','parser.py',28),
+  ('sline -> SPACE line','sline',2,'p_sline','parser.py',33),
 ]

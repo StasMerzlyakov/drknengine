@@ -17,6 +17,6 @@ parser = yacc.yacc()
 
 with open ("tests/schema1.drk", "r") as file:
     data=file.readlines()
-    result = parser.parse(''.join(data))
-    print(result)
+    parser.parse(''.join(data))
+    #print(result)
 
