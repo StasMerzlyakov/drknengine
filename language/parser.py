@@ -28,6 +28,7 @@ def p_string_word(p):
     assert isinstance(p, yacc.YaccProduction)
     if space_start_pos == 0:
         space_start_pos = p.lexpos(1)
+        print('! ' + str(space_start_pos))
     p[0] = p[1]
 
 
