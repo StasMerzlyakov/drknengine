@@ -17,10 +17,12 @@ ACTIONS:
    A_3:
         TITLE: Измерить температуру
         CBLOCK: I2 gett
+
 SHELFS:
     S_1:
         TITLE: Установить флаг := Включен
         EXPRESSION: B3 := TRUE
+
 SKEWERS:
     SK_1:
         ITEMS: A_1 A_2 A_3 S_1

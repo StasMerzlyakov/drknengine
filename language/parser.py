@@ -5,7 +5,7 @@ import ply.yacc as yacc
 
 
 def p_program(p):
-    """program : title clib description variables actions"""
+    """program : title EOL clib EOL description EOL variables EOL actions"""
     print('program')
 
 
