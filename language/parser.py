@@ -5,7 +5,7 @@ import ply.yacc as yacc
 
 
 def p_program(p):
-    """program : title clib description variables"""
+    """program : title clib description variables actions"""
     print('program')
 
 
@@ -14,11 +14,38 @@ def p_description(p):
     print("description\n")
 
 
+def p_actions(p):
+    """actions : ACTIONS COLON EOL acts"""
+
+
+def p_acts(p):
+    """acts :
+            | action EOL
+            | action EOL acts"""
+
+
+def p_action(p):
+    """action : SPACE WORD COLON EOL SPACE title SPACE cblock"""
+
+
+def p_cblock(p):
+    """cblock : CBLOCK COLON SPACE methods EOL"""
+
+
+def p_methods(p):
+    """methods : methoddef
+               | methods EOL SPACE methoddef"""
+
+
+def p_methoddef(p):
+    """methoddef : string"""
+
+
 def p_variables(p):
     """variables : VARIABLES COLON vars EOL"""
 
 
-def p_vars_empty(p):
+def p_vars(p):
     """vars :
             | var
             | vars EOL var"""
