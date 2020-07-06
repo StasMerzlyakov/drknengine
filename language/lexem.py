@@ -2,11 +2,12 @@
 # DRAKON Engine definition language
 # lexem.py
 # ------------------------------------------------------- 
+
 tokens = (
     'TITLE', 'CLIB', 'DESCRIPTION',
     # VARIABLES
     'VARIABLES', 'INTOUT', 'INT', 'BOOL',
-    
+
     # DRAKON 
     'ACTIONS', 'SHELFS', 'SKEWERS',
 
@@ -45,7 +46,8 @@ t_COLON=r':'
 #t_NUMBER = r'\d+'
 #t_ID = r'[A-Z][A-Za-z0-9_@]*'
 t_SPACE = r'[ ]+'
-t_EOL = r'\n'
+t_EOL=r'\n'
+
 
 def t_WORD(t):
     r'[^: \n]+'
@@ -53,8 +55,17 @@ def t_WORD(t):
         t.type = reserved[t.value]
     return t
 
+# Error handling rule
+def t_error(t):
+    print("Illegal character '%s'" % t.value[0])
+    t.lexer.skip(1)
 
 
+# Build the lexer
+import ply.lex as lex
+lexer = lex.lex()
+
+setattr(lexer, 'prvlinepos', 0)
 
 
 
