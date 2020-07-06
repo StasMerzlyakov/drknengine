@@ -6,7 +6,7 @@ from parser import *
 parser = yacc.yacc()
 
 
-with open ("tests/schema2.drk", "r") as file:
+with open ("tests/schema1.drk", "r") as file:
     data=file.readlines()
     parser.parse(''.join(data))
     #print(result)

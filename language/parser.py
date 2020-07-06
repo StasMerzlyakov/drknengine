@@ -3,13 +3,43 @@ from lexem import *
 
 import ply.yacc as yacc
 
+
 def p_program(p):
-    """program : title clib"""
+    """program : title clib description variables"""
     print('program')
 
 
+def p_description(p):
+    """description : DESCRIPTION COLON SPACE multiline EOL"""
+    print("description\n")
+
+
+def p_variables(p):
+    """variables : VARIABLES COLON vars EOL"""
+
+
+def p_vars_empty(p):
+    """vars :
+            | var
+            | vars EOL var"""
+
+
+def p_inout(p):
+    """inout : IN
+             | OUT"""
+
+
+def p_vtype(p):
+    """vtype : INT
+             | BOOL """
+
+
+def p_var(p):
+    """var : SPACE inout SPACE WORD SPACE vtype SPACE string"""
+
+
 def p_title(p):
-    """title : TITLE COLON SPACE multiline EOL"""
+    """title : TITLE COLON SPACE string EOL"""
     print('title: \n' + p[4])
 
 
@@ -23,7 +53,7 @@ def p_string_word(p):
     p[0] = p[1]
 
 
-def p_string_singleline(p):
+def p_string_row(p):
     """string : string SPACE WORD"""
     p[0] = p[1] + p[2] + p[3]
 

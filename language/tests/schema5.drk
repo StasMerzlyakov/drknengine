@@ -1,11 +1,9 @@
-TITLE: Тестовый сценарий 1
 CLIB: libtest.so.6
-DESCRIPTION: 
-    TITLE: Алгоритм зажигания лампочек
-    VARIABLES:
-        IN I1 INT входная переменная 
-        OUT I2 INT температура
-        OUT B3 BOOL какой-то флаг
+DESCRIPTION: Алгоритм зажигания лампочек
+VARIABLES:
+    IN I1 INT входная переменная
+    OUT I2 INT температура
+    OUT B3 BOOL какой-то флаг
 ACTIONS:
     A_1:
         TITLE: Текстовое действие
