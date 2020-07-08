@@ -1,8 +1,8 @@
-TITLE: Алгоритм зажигания лампочек
+TITLE:
+    DESCRIPTION: Алгоритм зажигания лампочек
+    START_SKEWER: SK_1
 
 CLIB: libtest.so.6
-
-DESCRIPTION: Алгоритм зажигания лампочек
 
 VARIABLES:
    IN I1 INT входная переменная
@@ -11,16 +11,28 @@ VARIABLES:
 
 ACTIONS:
    A_1:
-      TITLE: Текстовое действие
+      DESCRIPTION: Текстовое действие
       CBLOCK: method1 I1
               i method2 B3
               method3 i
 
    A_2:
-      TITLE: Действие 2
+      DESCRIPTION: Действие 2
       CBLOCK: method1 I2
 
    A_3:
-      TITLE: Измерить температуру
+      DESCRIPTION: Измерить температуру
       CBLOCK: I2 gett
+
+SHELFS:
+    S_1:
+        DESCRIPTION: Установить флаг := Включен
+        EXPRESSION: B3 := TRUE
+    S_2:
+        DESCRIPTION: Установить флаг := Включен
+        EXPRESSION: B3 := TRUE (1+1)
+
+SKEWERS:
+    SK_1:
+        ITEMS: A_1 A_2 A_3 S_1 END
 

@@ -9,18 +9,19 @@ tokens = (
     'VARIABLES', 'INTOUT', 'INT', 'BOOL',
 
     # DRAKON 
-    'ACTIONS', 'SHELFS', 'SKEWERS',
+    'ACTIONS', 'SHELFS', 'SKEWERS', 'ITEMS',
 
-    'ASSIGNMENT', 'COLON', 'TYPE', 'CBLOCK', 'IN', 'OUT', 'NUMBER', 'EXPRESSION', 'ID'
+    'ASSIGNMENT', 'COLON', 'TYPE', 'CBLOCK', 'IN', 'OUT', 'NUMBER', 'EXPRESSION', 'ID', 'START_SKEWER', 'END',
 
     # EXPRESSIONS
-    'TRUE', 'FALSE', 'LPARENT', 'RPAREN',
     'EOL',
     'SPACE',
     'WORD'
 )
 
 reserved = {
+    'END': 'END',
+    'START_SKEWER' :'START_SKEWER',
     'TITLE' : 'TITLE',
     'CLIB' : 'CLIB',
     'DESCRIPTION' : 'DESCRIPTION',
@@ -33,10 +34,9 @@ reserved = {
     'SHELFS': 'SHELFS',
     'SKEWERS': 'SKEWERS',
     'TYPE': 'TYPE',
+    'ITEMS':'ITEMS',
     'CBLOCK':'CBLOCK',
     'EXPRESSION':'EXPRESSION',
-    'TRUE':'TRUE',
-    'FALSE':'FALSE'
 }
 
 

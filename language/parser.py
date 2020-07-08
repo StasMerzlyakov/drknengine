@@ -5,27 +5,55 @@ import ply.yacc as yacc
 
 
 def p_program(p):
-    """program : title EOL clib EOL description EOL variables EOL actions"""
+    """program : title EOL clib EOL variables EOL actions shelfs skewers"""
     print('program')
 
 
 def p_description(p):
-    """description : DESCRIPTION COLON SPACE multiline EOL"""
+    """description : DESCRIPTION COLON SPACE string EOL"""
     print("description\n")
 
 
-def p_actions(p):
-    """actions : ACTIONS COLON EOL acts"""
+def p_skewers(p):
+    """skewers : SKEWERS COLON EOL skwrs"""
 
+
+def p_skwrs(p):
+    """skwrs : skewer EOL EOL
+             | skewer EOL skwrs"""
+
+
+def p_skewer(p):
+    """skewer : SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string
+              | SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string SPACE END"""
+
+
+def p_actions(p):
+    """actions : ACTIONS COLON EOL EOL
+               | ACTIONS COLON EOL acts"""
+
+
+def p_shelfs(p):
+    """shelfs : SHELFS COLON EOL EOL
+              | SHELFS COLON EOL shlfs EOL"""
+
+
+def p_shlfs(p):
+    """shlfs : shelf EOL
+             | shelf EOL shlfs"""
 
 def p_acts(p):
-    """acts :
-            | action EOL
+    """acts : action EOL
             | action EOL acts"""
 
 
+def p_shelf(p):
+    """shelf : SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT \
+               SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string"""
+
+
 def p_action(p):
-    """action : SPACE WORD COLON EOL SPACE title SPACE cblock"""
+    """action : SPACE WORD COLON EOL SPACE description SPACE cblock"""
 
 
 def p_cblock(p):
@@ -66,7 +94,7 @@ def p_var(p):
 
 
 def p_title(p):
-    """title : TITLE COLON SPACE string EOL"""
+    """title : TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL"""
     print('title: \n' + p[4])
 
 
