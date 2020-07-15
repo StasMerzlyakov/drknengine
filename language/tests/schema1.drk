@@ -2,7 +2,7 @@ TITLE:
     DESCRIPTION: Алгоритм зажигания лампочек
     START_SKEWER: SK_1
 
-CLIB: libtest.so.6
+CLIB: libc.so.6
 
 VARIABLES:
    IN I1 INT входная переменная
@@ -22,7 +22,8 @@ ACTIONS:
 
    A_3:
       DESCRIPTION: Измерить температуру
-      CBLOCK: I2 gett
+      CBLOCK: gett
+              gett2
 
 SHELFS:
     S_1:
