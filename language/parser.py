@@ -39,11 +39,10 @@ class ActionDefinition:
 
 CURRENT_ACTION = None
 
-
 GLOBAL_VARIABLES = {}
 
-
 C_METHOD_INFO = {'method1': {}, 'method2': {}, 'method3': {}, 'gett': {}, 'gett2' : {}}
+
 
 
 # Данный список должен быть генерируемым на основе заголовочного h-файла
@@ -52,14 +51,6 @@ C_METHOD_INFO = {'method1': {}, 'method2': {}, 'method3': {}, 'gett': {}, 'gett2
 
 def p_program(p):
     """program : title EOL clib EOL variables EOL actions shelfs skewers"""
-    print('import sys')
-    print('import ctypes, ctypes.util')
-    print('path_clib = ctypes.util.find_library("' + p[3] + '")')
-    print('try:')
-    print('    dlib = ctypes.CDLL(path_clib)')
-    print('except OSError:')
-    print('    print("Unable to load library' + p[3] + '")')
-    print('    sys.exit()')
 
 
 def p_description(p):
@@ -114,6 +105,7 @@ def p_action(p):
         print("    global " + var)
     for method in CURRENT_ACTION.get_methods():
         print("    " + method)
+    print()
     CURRENT_ACTION = None
 
 
@@ -141,7 +133,7 @@ def p_methoddef(p):
             print(" ".join(["METHOD", "'" + lst[0] + "'", "NOT FOUND IN LIBRARY"]))
             sys.exit(1)
         else:
-            CURRENT_ACTION.push_method("".join([lst[0],"(",")"]))
+            CURRENT_ACTION.push_method("".join(["dlib.",lst[0],"(",")"]))
         return
     first_arg = lst[0]
     if first_arg in C_METHOD_INFO:
@@ -150,7 +142,7 @@ def p_methoddef(p):
             if arg in GLOBAL_VARIABLES:
                 CURRENT_ACTION.push_variable(arg)
         args = ",".join(lst[1:])
-        CURRENT_ACTION.push_method("".join([method_name, "(", args, ")"]))
+        CURRENT_ACTION.push_method("".join(["dlib.",method_name, "(", args, ")"]))
         return
     elif first_arg in GLOBAL_VARIABLES:
         # Первый аргумент - глобальная переменная
@@ -165,7 +157,7 @@ def p_methoddef(p):
         if arg in GLOBAL_VARIABLES:
             CURRENT_ACTION.push_variable(arg)
     args = ",".join(lst[2:])
-    CURRENT_ACTION.push_method(" ".join([first_arg, "=", "".join([method_name,"(",args,")"])]))
+    CURRENT_ACTION.push_method(" ".join([first_arg, "=", "".join(["dlib.",method_name,"(",args,")"])]))
 
 
 
@@ -217,7 +209,15 @@ def p_title(p):
 
 def p_clib(p):
     """clib : CLIB COLON SPACE WORD EOL"""
-    p[0] = p[4]
+    print('import sys')
+    print('import ctypes, ctypes.util')
+    print('path_clib = ctypes.util.find_library("' + p[4] + '")')
+    print('try:')
+    print('    dlib = ctypes.CDLL(path_clib)')
+    print('except OSError:')
+    print('    print("Unable to load library' + p[4] + '")')
+    print('    sys.exit()')
+    print()
 
 
 def p_string_word(p):
