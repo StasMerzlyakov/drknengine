@@ -4,7 +4,7 @@
 # ------------------------------------------------------- 
 
 tokens = (
-    'TITLE', 'CLIB', 'DESCRIPTION',
+    'TITLE', 'WRAPPER', 'DESCRIPTION',
     # VARIABLES
     'VARIABLES', 'INTOUT', 'INT', 'BOOL',
 
@@ -23,7 +23,7 @@ reserved = {
     'END': 'END',
     'START_SKEWER' :'START_SKEWER',
     'TITLE' : 'TITLE',
-    'CLIB' : 'CLIB',
+    'WRAPPER' : 'WRAPPER',
     'DESCRIPTION' : 'DESCRIPTION',
     'VARIABLES' : 'VARIABLES',
     'INT': 'INT',

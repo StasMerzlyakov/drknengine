@@ -4,6 +4,7 @@ from lexem import *
 import ply.yacc as yacc
 import sys
 
+
 class VarDefinition:
     def __init__(self, type, inout, description):
         self.type = type
@@ -43,14 +44,15 @@ GLOBAL_VARIABLES = {}
 
 C_METHOD_INFO = {'method1': {}, 'method2': {}, 'method3': {}, 'gett': {}, 'gett2' : {}}
 
+ACTION_LIST = {}
 
+START_SKEWER = None
 
 # Данный список должен быть генерируемым на основе заголовочного h-файла
 # TODO
 
-
 def p_program(p):
-    """program : title EOL clib EOL variables EOL actions shelfs skewers"""
+    """program : title EOL wrapper EOL variables EOL actions shelfs skewers"""
 
 
 def p_description(p):
@@ -70,6 +72,17 @@ def p_skwrs(p):
 def p_skewer(p):
     """skewer : SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string
               | SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string SPACE END"""
+    global ACTION_LIST
+    ACTION_LIST[p[2]] = "skewer_" + p[2]
+    print("def skewer_" + p[2] + "():")
+
+    for act in p[9].split(" "):
+        if act in ACTION_LIST:
+            print("    " + ACTION_LIST[act] + "()")
+        else:
+            print("    skewer_" + act + "()")
+    print()
+    print()
 
 
 def p_actions(p):
@@ -95,19 +108,28 @@ def p_acts(p):
 def p_shelf(p):
     """shelf : SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT \
                SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string"""
+    global ACTION_LIST
+    ACTION_LIST[p[2]] = "shelf_" + p[2]
+    print("def shelf_" + p[2] + "():" )
+    print("    global " + p[19])
+    print("    " + " ".join([p[19], "=", p[23]]))
+    print()
+    print()
 
 
 def p_action(p):
     """action : SPACE WORD COLON EOL SPACE description SPACE cblock"""
-    print("def action_" + p[2] + ":")
+    print("def action_" + p[2] + "():")
     global CURRENT_ACTION
+    global ACTION_LIST
+    ACTION_LIST[p[2]] = "action_" + p[2]
     for var in CURRENT_ACTION.get_variables():
         print("    global " + var)
     for method in CURRENT_ACTION.get_methods():
         print("    " + method)
     print()
+    print()
     CURRENT_ACTION = None
-
 
 
 def p_cblock(p):
@@ -160,15 +182,21 @@ def p_methoddef(p):
     CURRENT_ACTION.push_method(" ".join([first_arg, "=", "".join(["dlib.",method_name,"(",args,")"])]))
 
 
-
-
-
-    #for w in p[1].split():
-    #    print("!" + w)
-
-
 def p_variables(p):
     """variables : VARIABLES COLON vars EOL"""
+    global GLOBAL_VARIABLES
+    for var in GLOBAL_VARIABLES:
+        varDef = GLOBAL_VARIABLES[var]
+        assert isinstance(varDef, VarDefinition)
+        print(var + " = None")
+        if varDef.inout:
+            print()
+            # Добавляем метод установки глобальной переменной
+            print("def set_"+var + "(val):")
+            print("    global " + var )
+            print("    " + var + " = val")
+    print()
+    print()
 
 
 def p_vars(p):
@@ -205,18 +233,13 @@ def p_var(p):
 def p_title(p):
     """title : TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL"""
     # print('title: \n' + p[4])
+    global START_SKEWER
+    START_SKEWER = "skewer_" + p[10]
 
 
-def p_clib(p):
-    """clib : CLIB COLON SPACE WORD EOL"""
-    print('import sys')
-    print('import ctypes, ctypes.util')
-    print('path_clib = ctypes.util.find_library("' + p[4] + '")')
-    print('try:')
-    print('    dlib = ctypes.CDLL(path_clib)')
-    print('except OSError:')
-    print('    print("Unable to load library' + p[4] + '")')
-    print('    sys.exit()')
+def p_wrapper(p):
+    """wrapper : WRAPPER COLON SPACE WORD EOL"""
+    print("from "+p[4]+" import dlib")
     print()
 
 
@@ -227,21 +250,6 @@ def p_string_word(p):
 
 def p_string_row(p):
     """string : string SPACE WORD"""
-    p[0] = p[1] + p[2] + p[3]
-
-
-def p_multiline_short(p):
-    """multiline : string"""
-    p[0] = p[1]
-
-
-def p_multiline_splong(p):
-    """multiline : multiline EOL SPACE string"""
-    p[0] = p[1] + p[2] + p[3] + p[4]
-
-
-def p_multiline_long(p):
-    """multiline : multiline EOL string"""
     p[0] = p[1] + p[2] + p[3]
 
 

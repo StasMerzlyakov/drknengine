@@ -2,7 +2,7 @@ TITLE:
     DESCRIPTION: Алгоритм зажигания лампочек
     START_SKEWER: SK_1
 
-CLIB: libc.so.6
+WRAPPER: test_wrapper
 
 VARIABLES:
    IN I1 INT входная переменная
@@ -28,12 +28,15 @@ ACTIONS:
 SHELFS:
     S_1:
         DESCRIPTION: Установить флаг := Включен
-        EXPRESSION: B3 := TRUE
+        EXPRESSION: B3 := True
     S_2:
         DESCRIPTION: Установить флаг := Включен
-        EXPRESSION: B3 := TRUE (1+1)
+        EXPRESSION: I2 := 1
+    S_3:
+        DESCRIPTION: Установить флаг := Выключен
+        EXPRESSION: B3 := False
 
 SKEWERS:
     SK_1:
-        ITEMS: A_1 A_2 A_3 S_1 END
+        ITEMS: S_2 S_3 A_1 A_2 A_3 S_1 END
 
