@@ -1,10 +1,10 @@
-import sys
-import ctypes, os
 import ctypes.util
+import os
+import sys
 
 path = os.path.dirname(os.path.realpath(__file__))
 dlib = None
-print(path)
+
 try:
     dlib = ctypes.CDLL("%s/libtest.so"%path)
 except OSError:

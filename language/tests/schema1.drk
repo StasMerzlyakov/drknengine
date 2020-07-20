@@ -5,25 +5,25 @@ TITLE:
 WRAPPER: test_wrapper
 
 VARIABLES:
-   IN I1 INT входная переменная
-   OUT I2 INT температура
-   OUT B3 BOOL какой-то флаг
+    IN I1 INT входная переменная
+    OUT I2 INT температура
+    OUT B3 BOOL какой-то флаг
 
 ACTIONS:
-   A_1:
-      DESCRIPTION: Текстовое действие
-      CBLOCK: method1 I1
-              i method2 B3
-              method3 i
+    A_1:
+        DESCRIPTION: Текстовое действие
+        CBLOCK: method1 I1
+                i method2 B3
+                method3 i
 
-   A_2:
-      DESCRIPTION: Действие 2
-      CBLOCK: method1 I2
+    A_2:
+        DESCRIPTION: Действие 2
+        CBLOCK: method1 I2
 
-   A_3:
-      DESCRIPTION: Измерить температуру
-      CBLOCK: gett
-              gett2
+    A_3:
+        DESCRIPTION: Измерить температуру
+        CBLOCK: gett
+                gett2
 
 SHELFS:
     S_1:
