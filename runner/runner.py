@@ -19,6 +19,11 @@ LIBRARY_PATH="%s/libs"%path
 if not os.path.exists(LIBRARY_PATH):
     os.makedirs(LIBRARY_PATH)
 
+SCENARIO_PATH="%s/scenario"%path
+
+if not os.path.exists(SCENARIO_PATH):
+    os.makedirs(SCENARIO_PATH)
+
 os.environ['LIBRARY_PATH'] = LIBRARY_PATH
 
 
@@ -34,7 +39,7 @@ def bytes_from_file(filename, chunksize=8192):
     return frame
 
 
-class LibraryStorageI(Runner.LibraryStorage):
+class RunnerServiceI(Runner.RunnerService):
 
     def deleteLibrary(self, name, current):
         print("deleteLibrary " + name)
@@ -54,6 +59,15 @@ class LibraryStorageI(Runner.LibraryStorage):
                 resultlib.append(l.replace(".so", "").replace("lib", ""))
 
         return resultlib
+
+
+    def getScenarioList(self, current):
+        print("getScenarioList \n")
+        result = []
+        for l in os.listdir(SCENARIO_PATH):
+            if l.endswith(".drk"):
+                result.append(l.replace(".drk", ""))
+        return result
 
 
     def uploadLibrary(self, name, library, current):
@@ -84,8 +98,8 @@ with Ice.initialize(sys.argv) as communicator:
     signal.signal(signal.SIGINT, lambda signum, frame: communicator.shutdown())
     if hasattr(signal, 'SIGBREAK'):
         signal.signal(signal.SIGBREAK, lambda signum, frame: communicator.shutdown())
-    adapter = communicator.createObjectAdapterWithEndpoints("LibraryStorage", "default -h localhost -p 10000")
-    adapter.add(LibraryStorageI(), Ice.stringToIdentity("libraryStorage"))
+    adapter = communicator.createObjectAdapterWithEndpoints("RunnerService", "default -h localhost -p 10000")
+    adapter.add(RunnerServiceI(), Ice.stringToIdentity("runner"))
     adapter.activate()
     communicator.waitForShutdown()
 

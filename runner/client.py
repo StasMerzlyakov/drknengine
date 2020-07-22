@@ -25,15 +25,20 @@ def bytes_from_file(filename, chunksize=8192):
 
 
 with Ice.initialize(sys.argv) as communicator:
-    libraryStorage = Runner.LibraryStoragePrx.checkedCast(communicator.stringToProxy("libraryStorage:default -h localhost -p 10000"))
+    runnerService = Runner.RunnerServicePrx.checkedCast(communicator.stringToProxy("runner:default -h localhost -p 10000"))
+
+    assert len(runnerService.getLibraryList()) == 0
+
     lib = bytes_from_file(LIBRARY_PATH)
-    libraryStorage.uploadLibrary(LIBRARY_NAME, lib)
-    print(libraryStorage.getLibraryList())
+    runnerService.uploadLibrary(LIBRARY_NAME, lib)
+    assert LIBRARY_NAME in runnerService.getLibraryList()
 
-    lib2 = libraryStorage.getLibrary(LIBRARY_NAME)
+    lib2 = runnerService.getLibrary(LIBRARY_NAME)
     assert lib == lib2
-    libraryStorage.deleteLibrary(LIBRARY_NAME)
+    runnerService.deleteLibrary(LIBRARY_NAME)
+    print("LibraryStorage OK")
 
+    assert len(runnerService.getScenarioList()) == 0
 
 
 

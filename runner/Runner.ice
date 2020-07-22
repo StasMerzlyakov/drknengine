@@ -6,13 +6,6 @@ module Runner
 
     sequence<string> StringSeq;
 
-    struct Wrapper
-    {
-        ByteSeq wrapperCode;        // python-код обертки ctypes
-        ByteSeq nativeLibraryCode;  // код нативной библиотеки
-        string nativeLibraryName;          // имя файла, под которым должна быть сохранена нативная библиотека
-    }
-
     exception LibraryExistsException
     {
     }
@@ -36,8 +29,47 @@ module Runner
         // Удалить библиотеку из хранилища
         void deleteLibrary(string name)  throws LibraryNotExistsException;
 
-        // Залить пакет в хранилище
+        // Залить библиотеку в хранилище
         void uploadLibrary(string name, ByteSeq library)
             throws LibraryExistsException, LibraryUploadException;
     }
+
+    exception ScenarioExistsException
+    {
+    }
+
+    exception ScenarioNotExistsException
+    {
+    }
+
+    exception ScenarioUploadException
+    {
+    }
+
+
+    interface ScenarioStorage
+    {
+        // Получить список сценариев
+        StringSeq getScenarioList();
+
+        // Выгрузить сценарий из хранилища
+        ByteSeq getScenario(string name) throws ScenarioNotExistsException;
+
+        // Удалить сценарий из хранилища
+        void deleteScenario(string name)  throws ScenarioNotExistsException;
+
+        // Залить сценарий в хранилище
+        void uploadScenario(string name, ByteSeq library)
+            throws ScenarioExistsException, ScenarioUploadException;
+
+        // Получить визуальное представление DRAKON-схемы
+        ByteSeq getScenarioView(string name) throws ScenarioNotExistsException;
+
+    }
+
+    interface RunnerService extends LibraryStorage, ScenarioStorage
+    {
+    }
+
+
 }
