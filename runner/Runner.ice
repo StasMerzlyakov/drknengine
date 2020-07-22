@@ -13,24 +13,31 @@ module Runner
         string nativeLibraryName;          // имя файла, под которым должна быть сохранена нативная библиотека
     }
 
-    exception WrapperExistsException
+    exception LibraryExistsException
     {
     }
 
-    exception WrapperNotExistsException
+    exception LibraryNotExistsException
     {
     }
 
-    exception WrapperUploadException
+    exception LibraryUploadException
     {
     }
 
-    interface WrapperStorage
+    interface LibraryStorage
     {
-        StringSeq getWrapperList();      // получить список загруженных пакетов
-        Wrapper getWrapper(string name) throws WrapperNotExistsException; // выгрузить пакет из хранилища
-        void deleteWrapper(string name);        // удалить пакет из хранилища
-        void uploadWrapper(string name, Wrapper wrapper) // залить пакет в хранилище
-            throws WrapperExistsException, WrapperUploadException;
+        // Получить список загруженных библиотек
+        StringSeq getLibraryList();
+
+        // Выгрузить библиотеку из хранилища
+        ByteSeq getLibrary(string name) throws LibraryNotExistsException;
+
+        // Удалить библиотеку из хранилища
+        void deleteLibrary(string name)  throws LibraryNotExistsException;
+
+        // Залить пакет в хранилище
+        void uploadLibrary(string name, ByteSeq library)
+            throws LibraryExistsException, LibraryUploadException;
     }
 }

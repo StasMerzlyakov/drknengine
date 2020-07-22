@@ -52,7 +52,7 @@ START_SKEWER = None
 # TODO
 
 def p_program(p):
-    """program : title EOL wrapper EOL variables EOL actions shelfs skewers"""
+    """program : title EOL native_library EOL variables EOL actions shelfs skewers"""
 
 
 def p_description(p):
@@ -195,6 +195,8 @@ def p_variables(p):
             print("def set_"+var + "(val):")
             print("    global " + var )
             print("    " + var + " = val")
+            print()
+            print()
     print()
     print()
 
@@ -237,9 +239,24 @@ def p_title(p):
     START_SKEWER = "skewer_" + p[10]
 
 
-def p_wrapper(p):
-    """wrapper : WRAPPER COLON SPACE WORD EOL"""
-    print("from "+p[4]+" import dlib")
+def p_native_library(p):
+    """native_library : NATIVE_LIBRARY COLON SPACE WORD EOL"""
+    print("import ctypes.util")
+    print("import os")
+    print("import sys")
+    print("")
+    print("LIBRARY_PATH = os.environ[\"LIBRARY_PATH\"]")
+    print("")
+    print("path = os.path.dirname(LIBRARY_PATH)")
+    print("dlib = None")
+    print("")
+    print("try:")
+    print("    dlib = ctypes.CDLL(LIBRARY_PATH" + " + \"/lib%s.so\""%p[4] +")")
+
+    print("except OSError:")
+    print("    print(\"Unable to load library lib%s.so\")"%p[4])
+    print("    sys.exit()")
+    print("")
     print()
 
 

@@ -2,7 +2,7 @@ TITLE:
     DESCRIPTION: Алгоритм зажигания лампочек
     START_SKEWER: SK_1
 
-WRAPPER: test_wrapper
+NATIVE_LIBRARY: test
 
 VARIABLES:
     IN I1 INT входная переменная

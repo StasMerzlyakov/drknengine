@@ -10,10 +10,16 @@ import Runner
 
 path = os.path.dirname(os.path.realpath(__file__) )
 
-WORK_DIRECTORY="%s/wrappers"%path
+import os
+path = os.path.dirname(os.path.realpath(__file__))
 
-if not os.path.exists(WORK_DIRECTORY):
-    os.makedirs(WORK_DIRECTORY)
+
+LIBRARY_PATH="%s/libs"%path
+
+if not os.path.exists(LIBRARY_PATH):
+    os.makedirs(LIBRARY_PATH)
+
+os.environ['LIBRARY_PATH'] = LIBRARY_PATH
 
 
 def bytes_from_file(filename, chunksize=8192):
@@ -28,54 +34,43 @@ def bytes_from_file(filename, chunksize=8192):
     return frame
 
 
-class WrapperStorageI(Runner.WrapperStorage):
+class LibraryStorageI(Runner.LibraryStorage):
 
-    def deleteWrapper(self, name, current):
-        print("deleteWrapper " + name)
+    def deleteLibrary(self, name, current):
+        print("deleteLibrary " + name)
 
-        wrapper_dir = WORK_DIRECTORY + "/" + name
-        if os.path.exists(wrapper_dir):
-            shutil.rmtree(wrapper_dir)
-
-
-    def getWrapperList(self, current):
-        print("getWrapperList \n")
-        return os.listdir(WORK_DIRECTORY)
+        lib_file_path = LIBRARY_PATH + "/lib%s.so"%name
+        if os.path.exists(lib_file_path):
+            os.remove(lib_file_path)
+        else:
+            raise Runner.LibraryNotExistsException()
 
 
-    def uploadWrapper(self, name, wrapper, current):
-        print("uploadWrapper " + name)
-        wrapper_dir = WORK_DIRECTORY + "/" + name
-        if os.path.exists(wrapper_dir):
-            raise Runner.WrapperExistsException()
-        os.makedirs(wrapper_dir)
+    def getLibraryList(self, current):
+        print("getLibraryList \n")
+        resultlib = []
+        for l in os.listdir(LIBRARY_PATH):
+            if l.startswith("lib") and l.endswith(".so"):
+                resultlib.append(l.replace(".so", "").replace("lib", ""))
 
-        wraper_file = wrapper_dir + "/" + name + ".py"
-        with open(wraper_file, 'wb') as wf:
-            wf.write(wrapper.wrapperCode)
-
-        lib_file = wrapper_dir + "/" + wrapper.nativeLibraryName
-
-        with open(lib_file, 'wb') as wf:
-            wf.write(wrapper.nativeLibraryCode)
-
-    def getWrapper(self, name, current):
-        wrapper_dir = WORK_DIRECTORY + "/" + name
-        if not os.path.exists(wrapper_dir):
-            raise Runner.WrapperNotExistsException()
-        nativelib = bytearray()
-        libname = ""
-        wrapper = bytearray()
-        for f in os.listdir(wrapper_dir):
-            if f.endswith(".py"):
-                wrapper = bytes_from_file(wrapper_dir + "/" +f)
-            if f.endswith(".so"):
-                nativelib = bytes_from_file(wrapper_dir + "/" + f)
-                libname = f
-        return  Runner.Wrapper(wrapper, nativelib, libname)
+        return resultlib
 
 
+    def uploadLibrary(self, name, library, current):
+        print("uploadLibrary " + name)
+        lib_file_path = LIBRARY_PATH + "/lib%s.so"%name
+        if os.path.exists(lib_file_path):
+            raise Runner.LibraryExistsException()
+        with open(lib_file_path, 'wb') as wf:
+            wf.write(library)
 
+    def getLibrary(self, name, current):
+        print("getLibrary " + name)
+        lib_file_path = LIBRARY_PATH + "/lib%s.so"%name
+        if not os.path.exists(lib_file_path):
+            raise Runner.LibraryNotExistsException()
+        nativelib = bytes_from_file(lib_file_path)
+        return nativelib
 
 
 #
@@ -83,15 +78,14 @@ class WrapperStorageI(Runner.WrapperStorage):
 # the communicator is destroyed once it goes out of scope.
 #
 with Ice.initialize(sys.argv) as communicator:
-
     #
     # Install a signal handler to shutdown the communicator on Ctrl-C
     #
     signal.signal(signal.SIGINT, lambda signum, frame: communicator.shutdown())
     if hasattr(signal, 'SIGBREAK'):
         signal.signal(signal.SIGBREAK, lambda signum, frame: communicator.shutdown())
-    adapter = communicator.createObjectAdapterWithEndpoints("WrapperStorage", "default -h localhost -p 10000")
-    adapter.add(WrapperStorageI(), Ice.stringToIdentity("wrapperStorage"))
+    adapter = communicator.createObjectAdapterWithEndpoints("LibraryStorage", "default -h localhost -p 10000")
+    adapter.add(LibraryStorageI(), Ice.stringToIdentity("libraryStorage"))
     adapter.activate()
     communicator.waitForShutdown()
 
