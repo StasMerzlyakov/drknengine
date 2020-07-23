@@ -27,14 +27,14 @@ ACTIONS:
 
 SHELFS:
     S_1:
-        DESCRIPTION: Установить флаг := Включен
-        EXPRESSION: B3 := True
-    S_2:
-        DESCRIPTION: Установить флаг := Включен
-        EXPRESSION: I2 := 1
-    S_3:
-        DESCRIPTION: Установить флаг := Выключен
+        DESCRIPTION: cветодиод "питание" := выключен
         EXPRESSION: B3 := False
+    S_2:
+        DESCRIPTION: установить "температуру" := 50
+        EXPRESSION: I2 := 50
+    S_3:
+        DESCRIPTION: cветодиод "питание" := включен
+        EXPRESSION: B3 := True
 
 SKEWERS:
     SK_1:

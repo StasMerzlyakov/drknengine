@@ -41,6 +41,7 @@ def bytes_from_file(filename, chunksize=8192):
 
 class RunnerServiceI(Runner.RunnerService):
 
+    # LibraryStorage functions
     def deleteLibrary(self, name, current):
         print("deleteLibrary " + name)
 
@@ -61,15 +62,6 @@ class RunnerServiceI(Runner.RunnerService):
         return resultlib
 
 
-    def getScenarioList(self, current):
-        print("getScenarioList \n")
-        result = []
-        for l in os.listdir(SCENARIO_PATH):
-            if l.endswith(".drk"):
-                result.append(l.replace(".drk", ""))
-        return result
-
-
     def uploadLibrary(self, name, library, current):
         print("uploadLibrary " + name)
         lib_file_path = LIBRARY_PATH + "/lib%s.so"%name
@@ -85,6 +77,47 @@ class RunnerServiceI(Runner.RunnerService):
             raise Runner.LibraryNotExistsException()
         nativelib = bytes_from_file(lib_file_path)
         return nativelib
+
+
+    # ScenarioStorage function
+    def deleteScenario(self, name, current):
+        print("deleteScenario " + name)
+
+        scenario_file_path = SCENARIO_PATH + "/%s.drk"%name
+        if os.path.exists(scenario_file_path):
+            os.remove(scenario_file_path)
+        else:
+            raise Runner.ScenarioNotExistsException()
+
+
+    def getScenarioList(self, current):
+        print("getScenarioList \n")
+        result = []
+        for l in os.listdir(SCENARIO_PATH):
+            if l.endswith(".drk"):
+                result.append(l.replace(".drk", ""))
+        return result
+
+    def getScenario(self, name, current):
+        print("getScenario " + name)
+        scenario_file_path = SCENARIO_PATH + "/%s.drk" % name
+        if not os.path.exists(scenario_file_path):
+            raise Runner.ScenarioNotExistsException()
+        scenario = bytes_from_file(scenario_file_path)
+        return scenario
+
+
+    # TODO
+    def uploadScenario(self, name, library, current):
+        pass
+
+    # TODO
+    def getScenarioView(self, name, current):
+        pass
+
+
+
+
 
 
 #
