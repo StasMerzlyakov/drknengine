@@ -1,6 +1,12 @@
 TITLE:
     DESCRIPTION: Алгоритм зажигания лампочек
     START_SKEWER: SK_1
+    SVG:
+        <g>
+            <rect x="390" y="1" width="220" height="50" rx="25" ry="25" fill="#FFFFFF" stroke="#000000" />
+            <text x="410" y="34" font-family="Verdana" font-size="20">Зажигание лампочек</text>
+        </g>
+
 
 NATIVE_LIBRARY: test
 

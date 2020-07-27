@@ -241,7 +241,7 @@ def p_var(p):
 
 
 def p_title(p):
-    """title : TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL"""
+    """title : TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL svg"""
     # print('title: \n' + p[4])
     global START_SKEWER
     START_SKEWER = "skewer_" + p[10]
