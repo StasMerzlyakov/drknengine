@@ -16,7 +16,9 @@ tokens = (
     # EXPRESSIONS
     'EOL',
     'SPACE',
-    'WORD'
+    'WORD',
+    'SVG'
+
 )
 
 reserved = {
@@ -37,6 +39,7 @@ reserved = {
     'ITEMS':'ITEMS',
     'CBLOCK':'CBLOCK',
     'EXPRESSION':'EXPRESSION',
+    'SVG':'SVG'
 }
 
 

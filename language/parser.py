@@ -52,7 +52,7 @@ START_SKEWER = None
 # TODO
 
 def p_program(p):
-    """program : title EOL native_library EOL variables EOL actions shelfs skewers"""
+    """program : title EOL native_library EOL variables EOL actions shelfs end EOL skewers"""
 
 
 def p_description(p):
@@ -65,8 +65,16 @@ def p_skewers(p):
 
 
 def p_skwrs(p):
-    """skwrs : skewer EOL EOL
-             | skewer EOL skwrs"""
+    """skwrs : skewer EOL svg
+             | skewer EOL svg skwrs"""
+
+
+def p_svg(p):
+    """svg : SPACE SVG COLON EOL svgdef EOL"""
+
+def p_svgdef(p):
+    """svgdef : SPACE string EOL
+              | SPACE string EOL svgdef"""
 
 
 def p_skewer(p):
@@ -91,8 +99,8 @@ def p_actions(p):
 
 
 def p_shelfs(p):
-    """shelfs : SHELFS COLON EOL EOL
-              | SHELFS COLON EOL shlfs EOL"""
+    """shelfs : SHELFS COLON EOL
+              | SHELFS COLON EOL shlfs"""
 
 
 def p_shlfs(p):
@@ -107,7 +115,7 @@ def p_acts(p):
 
 def p_shelf(p):
     """shelf : SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT \
-               SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string"""
+               SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg"""
     global ACTION_LIST
     ACTION_LIST[p[2]] = "shelf_" + p[2]
     print("def shelf_" + p[2] + "():" )
@@ -118,7 +126,7 @@ def p_shelf(p):
 
 
 def p_action(p):
-    """action : SPACE WORD COLON EOL SPACE description SPACE cblock"""
+    """action : SPACE WORD COLON EOL SPACE description SPACE cblock EOL svg"""
     print("def action_" + p[2] + "():")
     global CURRENT_ACTION
     global ACTION_LIST
@@ -269,6 +277,9 @@ def p_string_row(p):
     """string : string SPACE WORD"""
     p[0] = p[1] + p[2] + p[3]
 
+
+def p_end(p):
+    """end : END COLON EOL svg"""
 
 # def p_sline(p):
 #    '''sline : SPACE line'''

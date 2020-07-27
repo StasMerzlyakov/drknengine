@@ -11,32 +11,92 @@ VARIABLES:
 
 ACTIONS:
     A_1:
-        DESCRIPTION: Текстовое действие
+        DESCRIPTION: Действие 1
         CBLOCK: method1 I1
                 i method2 B3
                 method3 i
 
+        SVG:
+             <g>
+                <rect x="380" y="290" width="250" height="60" fill="#FFFFFF" stroke="#000000" />
+                <text x="430" y="325" font-family="Verdana" font-size="20">Действие 1</text>
+             </g>
+
+
     A_2:
         DESCRIPTION: Действие 2
         CBLOCK: method1 I2
+
+        SVG:
+             <g>
+                <rect x="380" y="375" width="250" height="60" fill="#FFFFFF" stroke="#000000" />
+                <text x="430" y="410" font-family="Verdana" font-size="20">Действие 2</text>
+             </g>
+
 
     A_3:
         DESCRIPTION: Измерить температуру
         CBLOCK: gett
                 gett2
 
+        SVG:
+            <g>
+                <rect x="380" y="460" width="250" height="60" fill="#FFFFFF" stroke="#000000" />
+                <text x="410" y="495" font-family="Verdana" font-size="20">Измерить температуру</text>
+            </g>
+
+
 SHELFS:
     S_1:
         DESCRIPTION: cветодиод "питание" := выключен
         EXPRESSION: B3 := False
+        SVG:
+            <g>
+                <rect x="380" y="550" width="250" height="45" fill="#FFFFFF" stroke="#000000" />
+                <text x="395" y="580" font-family="Verdana" font-size="20">cветодиод "питание"</text>
+                <rect x="380" y="595" width="250" height="45" fill="#FFFFFF" stroke="#000000" />
+                <text x="395" y="625" font-family="Verdana" font-size="20">выключен</text>
+            </g>
+
+
     S_2:
         DESCRIPTION: установить "температуру" := 50
         EXPRESSION: I2 := 50
+        SVG:
+            <g>
+                <rect x="380" y="70" width="250" height="45" fill="#FFFFFF" stroke="#000000" />
+                <text x="395" y="100" font-family="Verdana" font-size="20">установить "температуру"</text>
+                <rect x="380" y="115" width="250" height="45" fill="#FFFFFF" stroke="#000000" />
+                <text x="395" y="140" font-family="Verdana" font-size="20">50</text>
+            </g>
+
+
     S_3:
         DESCRIPTION: cветодиод "питание" := включен
         EXPRESSION: B3 := True
+        SVG:
+            <g>
+                <rect x="380" y="180" width="250" height="45" fill="#FFFFFF" stroke="#000000" />
+                <text x="395" y="210" font-family="Verdana" font-size="20">cветодиод "питание"</text>
+                <rect x="380" y="225" width="250" height="45" fill="#FFFFFF" stroke="#000000" />
+                <text x="395" y="250" font-family="Verdana" font-size="20">включен</text>
+            </g>
+
+
+END:
+    SVG:
+        <g>
+            <rect x="440" y="670" width="120" height="50" rx="25" ry="25" fill="#FFFFFF" stroke="#000000" />
+            <text x="480" y="700" font-family="Verdana" font-size="20">End</text>
+        </g>
+
 
 SKEWERS:
     SK_1:
         ITEMS: S_2 S_3 A_1 A_2 A_3 S_1 END
+        SVG:
+            <g>
+                <line x1="500" x2="500" y1="0" y2="700" stroke-width="1" stroke="#000000" id="vline"  ></line>
+                <line x1="500" x2="500" y1="0" y2="700" stroke-width="1" stroke="#000000" id="vline"  ></line>
+            </g>
 
