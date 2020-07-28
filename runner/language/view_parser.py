@@ -1,45 +1,8 @@
 # LEXEM DEFINITIONS
-from lexem import *
+from language.lexem import *
 
 import ply.yacc as yacc
 import sys
-
-
-class VarDefinition:
-    def __init__(self, type, inout, description):
-        self.type = type
-        self.inout = inout
-        self.description = description
-
-
-class ActionDefinition:
-    def __init__(self):
-        # список используемых глобальных переменных
-        self.variables=[]
-        # список вызываемых методов
-        self.methods=[]
-
-    def push_variable(self, name):
-        """ Метод добавления переменных в список """
-        if not name in self.variables:
-            self.variables.append(name)
-
-    def get_variables(self):
-        """ Получение списка используемых глобальных переменных """
-        for variable in self.variables:
-            yield variable
-
-    def push_method(self, method):
-        self.methods.append(method)
-
-    def get_methods(self):
-        """ Получение списка методов блока """
-        for method in self.methods:
-            yield method
-
-
-# Данный список должен быть генерируемым на основе заголовочного h-файла
-# TODO
 
 def p_program(p):
     """program : title EOL native_library EOL variables EOL actions shelfs end EOL skewers"""

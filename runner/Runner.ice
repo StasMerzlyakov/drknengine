@@ -63,8 +63,7 @@ module Runner
             throws ScenarioExistsException, ScenarioUploadException;
 
         // Получить визуальное представление DRAKON-схемы
-        ByteSeq getScenarioView(string name) throws ScenarioNotExistsException;
-
+        StringSeq getScenarioView(string name) throws ScenarioNotExistsException;
     }
 
     interface RunnerService extends LibraryStorage, ScenarioStorage

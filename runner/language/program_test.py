@@ -1,6 +1,11 @@
+import os
+
+LIBRARY_PATH='./tests'
+os.environ['LIBRARY_PATH'] = LIBRARY_PATH
+
 
 # LEXEM DEFINITIONS
-from program_generator import *
+from program_parser import *
 
 # Build the parser
 parser = yacc.yacc()

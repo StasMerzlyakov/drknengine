@@ -1,9 +1,15 @@
 # LEXEM DEFINITIONS
-from lexem import *
+from language.lexem import *
+import subprocess, os
+
+LIBRARY_PATH = os.environ['LIBRARY_PATH']
 
 import ply.yacc as yacc
 import sys
 
+
+class LibraryNotFoundException(Exception):
+    pass
 
 class VarDefinition:
     def __init__(self, type, inout, description):
@@ -42,7 +48,9 @@ CURRENT_ACTION = None
 
 GLOBAL_VARIABLES = {}
 
-C_METHOD_INFO = {'method1': {}, 'method2': {}, 'method3': {}, 'gett': {}, 'gett2' : {}}
+#C_METHOD_INFO = {'method1': {}, 'method2': {}, 'method3': {}, 'gett': {}, 'gett2' : {}}
+
+C_METHOD_INFO = []
 
 ACTION_LIST = {}
 
@@ -266,6 +274,21 @@ def p_native_library(p):
     print("    sys.exit()")
     print("")
     print()
+
+    # заполняем информацию для дальнейшей генерации
+    global C_METHOD_INFO
+    path = LIBRARY_PATH + "/lib%s.so" % p[4]
+
+    if not os.path.exists(path):
+        raise LibraryNotFoundException(path)
+
+    bashCommand = 'nm -D ' + path + ' | grep " T " | grep -v _init | grep -v _fini | awk \'{print $3}\''
+    process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE, stderr=None, shell=True)
+    output, _ = process.communicate()
+    for m in output.split():
+        if not m is None:
+            C_METHOD_INFO.append(m.decode('utf-8'))
+
 
 
 def p_string_word(p):

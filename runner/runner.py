@@ -19,12 +19,21 @@ LIBRARY_PATH="%s/libs"%path
 if not os.path.exists(LIBRARY_PATH):
     os.makedirs(LIBRARY_PATH)
 
+os.environ['LIBRARY_PATH'] = LIBRARY_PATH
+
 SCENARIO_PATH="%s/scenario"%path
 
 if not os.path.exists(SCENARIO_PATH):
     os.makedirs(SCENARIO_PATH)
 
-os.environ['LIBRARY_PATH'] = LIBRARY_PATH
+os.environ['SCENARIO_PATH'] = SCENARIO_PATH
+
+PROCESS_PATH="%s/process"%path
+
+if not os.path.exists(PROCESS_PATH):
+    os.makedirs(PROCESS_PATH)
+
+os.environ['PROCESS_PATH'] = PROCESS_PATH
 
 
 def bytes_from_file(filename, chunksize=8192):
@@ -38,6 +47,8 @@ def bytes_from_file(filename, chunksize=8192):
                 break
     return frame
 
+from program_generator import ProgramGenerator
+from view_generator import ViewGenerator
 
 class RunnerServiceI(Runner.RunnerService):
 
@@ -92,11 +103,8 @@ class RunnerServiceI(Runner.RunnerService):
 
     def getScenarioList(self, current):
         print("getScenarioList \n")
-        result = []
-        for l in os.listdir(SCENARIO_PATH):
-            if l.endswith(".drk"):
-                result.append(l.replace(".drk", ""))
-        return result
+        return os.listdir(SCENARIO_PATH)
+
 
     def getScenario(self, name, current):
         print("getScenario " + name)
@@ -107,14 +115,46 @@ class RunnerServiceI(Runner.RunnerService):
         return scenario
 
 
-    # TODO
     def uploadScenario(self, name, library, current):
-        pass
+        print("uploadScenarion " + name)
+
+        scenario_dir_path = SCENARIO_PATH + "/%s" % name
+        if os.path.exists(scenario_dir_path):
+            raise Runner.ScenarioExistsException()
+
+        try:
+            os.makedirs(scenario_dir_path)
+
+            scenario_file_path = scenario_dir_path + "/" + name + ".drk"
+            with open(scenario_file_path, 'wb') as wf:
+                wf.write(library)
+
+            program_generator = ProgramGenerator()
+            program_file_path = scenario_dir_path + "/" + name + ".py"
+            program_generator.generate(scenario_file_path, program_file_path)
+
+            view_generator = ViewGenerator()
+            view_file_path = scenario_dir_path + "/" + name + ".html"
+            view_generator.generate(scenario_file_path, view_file_path)
+
+
+        except Exception as err:
+            shutil.rmtree(scenario_dir_path)
+            print(err)
+            raise Runner.ScenarioUploadException()
+
 
     # TODO
     def getScenarioView(self, name, current):
-        pass
+        print("getScenarioView " + name)
 
+        scenario_dir_path = SCENARIO_PATH + "/%s" % name
+        if not os.path.exists(scenario_dir_path):
+            raise Runner.ScenarioNotExistsException()
+
+        view_file_path = scenario_dir_path + "/" + name + ".html"
+        view = bytes_from_file(view_file_path)
+        return view
 
 
 

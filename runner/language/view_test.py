@@ -1,5 +1,5 @@
 # LEXEM DEFINITIONS
-from view_generator import *
+from view_parser import *
 
 # Build the parser
 parser = yacc.yacc()
