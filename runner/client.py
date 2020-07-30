@@ -45,7 +45,7 @@ with Ice.initialize(sys.argv) as communicator:
     runnerService.uploadScenario(SCRIPT_NAME, scenario)
 
     print(runnerService.getScenarioList())
-
+    #print(runnerService.getScenarioView(SCRIPT_NAME).decode('utf-8'))
 
 
 

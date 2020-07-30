@@ -4,15 +4,10 @@ import os
 import signal
 import shutil
 
-
 Ice.loadSlice('Runner.ice')
 import Runner
 
-path = os.path.dirname(os.path.realpath(__file__) )
-
-import os
-path = os.path.dirname(os.path.realpath(__file__))
-
+path = os.path.dirname(os.path.realpath(__file__) ) + "/runner"
 
 LIBRARY_PATH="%s/libs"%path
 
@@ -49,6 +44,7 @@ def bytes_from_file(filename, chunksize=8192):
 
 from program_generator import ProgramGenerator
 from view_generator import ViewGenerator
+from language.program_parser import LibraryNotFoundException
 
 class RunnerServiceI(Runner.RunnerService):
 
@@ -119,6 +115,9 @@ class RunnerServiceI(Runner.RunnerService):
         print("uploadScenarion " + name)
 
         scenario_dir_path = SCENARIO_PATH + "/%s" % name
+
+        print(scenario_dir_path)
+
         if os.path.exists(scenario_dir_path):
             raise Runner.ScenarioExistsException()
 
@@ -129,6 +128,8 @@ class RunnerServiceI(Runner.RunnerService):
             with open(scenario_file_path, 'wb') as wf:
                 wf.write(library)
 
+            print(scenario_file_path)
+
             program_generator = ProgramGenerator()
             program_file_path = scenario_dir_path + "/" + name + ".py"
             program_generator.generate(scenario_file_path, program_file_path)
@@ -137,14 +138,16 @@ class RunnerServiceI(Runner.RunnerService):
             view_file_path = scenario_dir_path + "/" + name + ".html"
             view_generator.generate(scenario_file_path, view_file_path)
 
-
+        except LibraryNotFoundException as lexp:
+            print("Требуемая для сценария блиотека %s не найдена "%str(lexp))
+            shutil.rmtree(scenario_dir_path)
+            raise Runner.LibraryNotExistsException()
         except Exception as err:
             shutil.rmtree(scenario_dir_path)
-            print(err)
+            print("Исключение : " + str(err))
             raise Runner.ScenarioUploadException()
 
 
-    # TODO
     def getScenarioView(self, name, current):
         print("getScenarioView " + name)
 

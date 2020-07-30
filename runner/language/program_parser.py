@@ -48,8 +48,6 @@ CURRENT_ACTION = None
 
 GLOBAL_VARIABLES = {}
 
-#C_METHOD_INFO = {'method1': {}, 'method2': {}, 'method3': {}, 'gett': {}, 'gett2' : {}}
-
 C_METHOD_INFO = []
 
 ACTION_LIST = {}
