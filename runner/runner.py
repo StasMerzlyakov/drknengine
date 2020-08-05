@@ -7,7 +7,7 @@ import shutil
 Ice.loadSlice('Runner.ice')
 import Runner
 
-path = os.path.dirname(os.path.realpath(__file__) ) + "/runner"
+path = os.path.dirname(os.path.realpath(__file__) ) + "/db"
 
 LIBRARY_PATH="%s/libs"%path
 
@@ -44,7 +44,10 @@ def bytes_from_file(filename, chunksize=8192):
 
 from program_generator import ProgramGenerator
 from view_generator import ViewGenerator
+from prm_generator import PrmGenerator
 from language.program_parser import LibraryNotFoundException
+
+
 
 class RunnerServiceI(Runner.RunnerService):
 
@@ -138,6 +141,10 @@ class RunnerServiceI(Runner.RunnerService):
             view_file_path = scenario_dir_path + "/" + name + ".html"
             view_generator.generate(scenario_file_path, view_file_path)
 
+            prm_generator = PrmGenerator()
+            prm_file_path = scenario_dir_path + "/" + name + ".prm"
+            prm_generator.generate(scenario_file_path, prm_file_path)
+
         except LibraryNotFoundException as lexp:
             print("Требуемая для сценария блиотека %s не найдена "%str(lexp))
             shutil.rmtree(scenario_dir_path)
@@ -158,6 +165,26 @@ class RunnerServiceI(Runner.RunnerService):
         view_file_path = scenario_dir_path + "/" + name + ".html"
         view = bytes_from_file(view_file_path)
         return view
+
+
+    def getScenarioParameters(self, name, current):
+        print("getScenarioParameters " + name)
+
+        scenario_dir_path = SCENARIO_PATH + "/%s" % name
+        if not os.path.exists(scenario_dir_path):
+            raise Runner.ScenarioNotExistsException()
+
+        prm_file_path = scenario_dir_path + "/" + name + ".prm"
+        resultList = []
+        with open(prm_file_path) as prm:
+            for line in prm:
+                name, type, inout = line.split(' ')
+                if inout == 'IN':
+                    inout = Runner.ParameterType.IN
+                else:
+                    inout = Runner.ParameterType.OUT
+                resultList.append(Runner.ParameterInfo(name, type, inout))
+        return resultList
 
 
 

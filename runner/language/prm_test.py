@@ -1,5 +1,5 @@
 # LEXEM DEFINITIONS
-from view_parser import *
+from prm_parser import *
 
 # Build the parser
 parser = yacc.yacc()
@@ -7,4 +7,5 @@ parser = yacc.yacc()
 with open ("tests/schema1.drk", "r") as file:
     data=file.readlines()
     parser.parse(''.join(data))
+
 

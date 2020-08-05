@@ -41,11 +41,12 @@ with Ice.initialize(sys.argv) as communicator:
     #print("LibraryStorage OK")
 
     #assert len(runnerService.getScenarioList()) == 0
-    scenario = bytes_from_file(SCRIPT_PATH)
-    runnerService.uploadScenario(SCRIPT_NAME, scenario)
+    #scenario = bytes_from_file(SCRIPT_PATH)
+    #runnerService.uploadScenario(SCRIPT_NAME, scenario)
 
     print(runnerService.getScenarioList())
     #print(runnerService.getScenarioView(SCRIPT_NAME).decode('utf-8'))
+    print(runnerService.getScenarioParameters('schema1'))
 
 
 
