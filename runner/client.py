@@ -6,7 +6,8 @@ Ice.loadSlice('Runner.ice')
 import Runner
 
 path = os.path.dirname(os.path.realpath(__file__) )+ "/language/tests"
-
+from process_invoker import start_process
+import process_invoker
 LIBRARY_NAME='test'
 LIBRARY_PATH='%s/libtest.so'%path
 
@@ -23,7 +24,6 @@ def bytes_from_file(filename, chunksize=8192):
             else:
                 break
     return frame
-
 
 
 with Ice.initialize(sys.argv) as communicator:
@@ -44,9 +44,18 @@ with Ice.initialize(sys.argv) as communicator:
     #scenario = bytes_from_file(SCRIPT_PATH)
     #runnerService.uploadScenario(SCRIPT_NAME, scenario)
 
-    print(runnerService.getScenarioList())
+    #print(runnerService.getScenarioList())
     #print(runnerService.getScenarioView(SCRIPT_NAME).decode('utf-8'))
-    print(runnerService.getScenarioParameters('schema1'))
+    #vl = runnerService.getScenarioParameters('schema1')
+
+    #print(vl)
+
+    #valueMap = {'I1':Runner.ParameterValue('4')}
+
+    #processName = runnerService.startProcess('schema1', valueMap)
+    #print(processName)
+
+    print(runnerService.getProcessValues('schema1_dsibggob'))
 
 
 

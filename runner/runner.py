@@ -7,6 +7,8 @@ import shutil
 Ice.loadSlice('Runner.ice')
 import Runner
 
+import process_invoker
+
 path = os.path.dirname(os.path.realpath(__file__) ) + "/db"
 
 LIBRARY_PATH="%s/libs"%path
@@ -48,7 +50,6 @@ from prm_generator import PrmGenerator
 from language.program_parser import LibraryNotFoundException
 
 
-
 class RunnerServiceI(Runner.RunnerService):
 
     # LibraryStorage functions
@@ -88,14 +89,13 @@ class RunnerServiceI(Runner.RunnerService):
         nativelib = bytes_from_file(lib_file_path)
         return nativelib
 
-
     # ScenarioStorage function
     def deleteScenario(self, name, current):
         print("deleteScenario " + name)
-
-        scenario_file_path = SCENARIO_PATH + "/%s.drk"%name
-        if os.path.exists(scenario_file_path):
-            os.remove(scenario_file_path)
+        scenario_dir_path = SCENARIO_PATH + "/%s" % name
+        if os.path.exists(scenario_dir_path):
+            shutil.rmtree(scenario_dir_path)
+            raise Runner.LibraryNotExistsException()
         else:
             raise Runner.ScenarioNotExistsException()
 
@@ -112,6 +112,21 @@ class RunnerServiceI(Runner.RunnerService):
             raise Runner.ScenarioNotExistsException()
         scenario = bytes_from_file(scenario_file_path)
         return scenario
+
+    def startProcess(self, scenarioName, valueSeq, current):
+        print("startProcess " + scenarioName)
+        scenario_dir_path = SCENARIO_PATH + "/%s" % scenarioName
+        return process_invoker.start_process(scenarioName, scenario_dir_path, valueSeq)
+
+    def getProcessValues(self, processName, current):
+        if processName in process_invoker.PROCESS_INFO_MAP:
+            result = {}
+            for key in list(process_invoker.PROCESS_INFO_MAP[processName]):
+                v = process_invoker.PROCESS_INFO_MAP[processName][key]
+                result[key] = Runner.ParameterValue(str(v.value))
+            return result
+        else:
+            raise Runner.ProcessNotExist()
 
 
     def uploadScenario(self, name, library, current):

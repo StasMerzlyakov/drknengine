@@ -85,17 +85,13 @@ module Runner
 
     struct ParameterValue
     {
-        // имя переменной
-        string name;
-
         // значение переменой
         string value;
     }
 
+    dictionary<string, ParameterValue> ParameterValueMap;
 
-    sequence<ParameterValue> ParameterValueSeq;
-
-    enum ProcessState { Running, Paused, Finished, Error }
+    enum ProcessState { Running, Finished, Error }
 
     exception WrongParametersException
     {
@@ -111,13 +107,13 @@ module Runner
         ParameterInfoSeq getScenarioParameters(string scenarioName) throws ScenarioNotExistsException;
 
         // Запуск процесса.
-        string startProcess(ParameterValueSeq valueSeq, string scenarioName) throws ScenarioNotExistsException, WrongParametersException;
+        string startProcess(string scenarioName, ParameterValueMap valueMap) throws ScenarioNotExistsException, WrongParametersException;
 
         // Получить состояине процесса
         ProcessState getProcessState(string processName) throws ProcessNotExist;
 
         // Получить значения параметров процесса
-        ParameterValueSeq getProcessValues(string processName) throws ProcessNotExist;
+        ParameterValueMap getProcessValues(string processName) throws ProcessNotExist;
 
     }
 

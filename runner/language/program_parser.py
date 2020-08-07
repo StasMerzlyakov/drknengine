@@ -12,9 +12,9 @@ class LibraryNotFoundException(Exception):
     pass
 
 class VarDefinition:
-    def __init__(self, type, inout, description):
+    def __init__(self, type, is_out, description):
         self.type = type
-        self.inout = inout
+        self.is_out = is_out
         self.description = description
 
 
@@ -59,6 +59,11 @@ START_SKEWER = None
 
 def p_program(p):
     """program : title EOL native_library EOL variables EOL actions shelfs end EOL skewers"""
+    global START_SKEWER
+    print("def start():")
+    print("    skewer_" + START_SKEWER + "()")
+    print("")
+    print("")
 
 
 def p_description(p):
@@ -126,7 +131,7 @@ def p_shelf(p):
     ACTION_LIST[p[2]] = "shelf_" + p[2]
     print("def shelf_" + p[2] + "():" )
     print("    global " + p[19])
-    print("    " + " ".join([p[19], "=", p[23]]))
+    print("    " + " ".join([get_value(p[19]), "=", p[23]]))
     print()
     print()
 
@@ -155,6 +160,14 @@ def p_methods(p):
                | methods EOL SPACE methoddef"""
 
 
+def get_value(l):
+    global GLOBAL_VARIABLES
+    if l in GLOBAL_VARIABLES and GLOBAL_VARIABLES[l].is_out:
+        return l + ".value"
+    else:
+        return l
+
+
 def p_methoddef(p):
     """methoddef : string"""
     lst = p[1].split()
@@ -177,7 +190,7 @@ def p_methoddef(p):
         for arg in lst[1:]:
             if arg in GLOBAL_VARIABLES:
                 CURRENT_ACTION.push_variable(arg)
-        args = ",".join(lst[1:])
+        args = ",".join(get_value(l) for l in lst[1:])
         CURRENT_ACTION.push_method("".join(["dlib.",method_name, "(", args, ")"]))
         return
     elif first_arg in GLOBAL_VARIABLES:
@@ -192,8 +205,8 @@ def p_methoddef(p):
     for arg in lst[2:]:
         if arg in GLOBAL_VARIABLES:
             CURRENT_ACTION.push_variable(arg)
-    args = ",".join(lst[2:])
-    CURRENT_ACTION.push_method(" ".join([first_arg, "=", "".join(["dlib.",method_name,"(",args,")"])]))
+    args = ",".join(get_value(l) for l in lst[2:])
+    CURRENT_ACTION.push_method(" ".join([get_value(first_arg), "=", "".join(["dlib.",method_name,"(",args,")"])]))
 
 
 def p_variables(p):
@@ -203,14 +216,7 @@ def p_variables(p):
         varDef = GLOBAL_VARIABLES[var]
         assert isinstance(varDef, VarDefinition)
         print(var + " = None")
-        if varDef.inout:
-            print()
-            # Добавляем метод установки глобальной переменной
-            print("def set_"+var + "(val):")
-            print("    global " + var )
-            print("    " + var + " = val")
-            print()
-            print()
+
     print()
     print()
 
@@ -225,9 +231,9 @@ def p_inout(p):
     """inout : IN
              | OUT"""
     if p[1] == 'IN':
-        p[0] = True
-    else:
         p[0] = False
+    else:
+        p[0] = True
 
 
 def p_vtype(p):
@@ -241,16 +247,15 @@ def p_var(p):
     # TODO - добавить проверки
     name = p[4]
     type = p[5]
-    inout = p[2]
+    is_out = p[2]
     description = p[8]
-    GLOBAL_VARIABLES[name] = VarDefinition(type, inout, description)
+    GLOBAL_VARIABLES[name] = VarDefinition(type, is_out, description)
 
 
 def p_title(p):
     """title : TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL svg"""
-    # print('title: \n' + p[4])
     global START_SKEWER
-    START_SKEWER = "skewer_" + p[10]
+    START_SKEWER = p[10]
 
 
 def p_native_library(p):
