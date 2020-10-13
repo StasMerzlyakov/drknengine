@@ -1,3 +1,10 @@
 node_modules
 package-lock.json
 .idea
+*.so
+*.o
+__pycache__/
+*.out
+*.pyc
+generated.py
+ice-demos
