@@ -7,6 +7,9 @@
             elementFormDefault="qualified"
             attributeFormDefault="qualified">
 
+    <!--#########################################################-->
+    <!-- Базовые типы -->
+
     <xsd:simpleType name="DimensionType">
         <xsd:annotation>
             <xsd:documentation>Размерность</xsd:documentation>
@@ -39,64 +42,126 @@
         </xsd:sequence>
     </xsd:complexType>
 
-    <xsd:complexType name="IconViewType">
-        <xsd:annotation>
-            <xsd:documentation>Базовый тип для отображения икон</xsd:documentation>
-        </xsd:annotation>
-        <xsd:sequence>
-            <!-- Позиция центра элемента -->
-            <xsd:element name="X" type="tns:SizeType"/>
-            <xsd:element name="Y" type="tns:SizeType"/>
-            <!-- Размер элемента -->
-            <xsd:element name="AxisX" type="tns:SizeType"/>
-            <xsd:element name="AxisY" type="tns:SizeType"/>
-
-            <!-- Позиция на соответсвующем шампуре, начиная от начала шампура -->
-            <xsd:element name="Position" type="tns:SizeType"/>
-        </xsd:sequence>
-        <xsd:attribute ref="tns:Id" use="required"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="VerticalLineType">
-        <xsd:annotation>
-            <xsd:documentation>Базовый тип для отбражения вертикальной линии</xsd:documentation>
-        </xsd:annotation>
-        <xsd:sequence>
-            <!-- Позиция начала элемента -->
-            <xsd:element name="X" type="tns:SizeType"/>
-            <xsd:element name="Y" type="tns:SizeType"/>
-            <xsd:element name="Height" type="tns:SizeType"/>
-        </xsd:sequence>
-        <xsd:attribute ref="tns:Id" use="required"/>
-    </xsd:complexType>
-
-    <xsd:complexType name="HorizontalLineType">
-        <xsd:annotation>
-            <xsd:documentation>Базовый тип для отбражения горизонтальной линии</xsd:documentation>
-        </xsd:annotation>
-        <xsd:sequence>
-            <!-- Позиция начала элемента -->
-            <xsd:element name="X" type="tns:SizeType"/>
-            <xsd:element name="Y" type="tns:SizeType"/>
-            <xsd:element name="Width" type="tns:SizeType"/>
-        </xsd:sequence>
-        <xsd:attribute ref="tns:Id" use="required"/>
-    </xsd:complexType>
-
     <xsd:attribute name="Id" type="xsd:ID">
         <xsd:annotation>
             <xsd:documentation>Идентификатор объекта</xsd:documentation>
         </xsd:annotation>
     </xsd:attribute>
 
+    <xsd:complexType name="IconViewType">
+        <xsd:annotation>
+            <xsd:documentation>Базовый тип для отображения икон</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="X" type="tns:SizeType">
+                <xsd:annotation>
+                    <xsd:documentation>Позиция центра элемента по оси X</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Y" type="tns:SizeType">
+                <xsd:annotation>
+                    <xsd:documentation>Позиция центра элемента по оси Y</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <!-- Размер элемента -->
+            <xsd:element name="AxisX" type="tns:SizeType">
+                <xsd:annotation>
+                    <xsd:documentation>Размер по оси X</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="AxisY" type="tns:SizeType">
+                <xsd:annotation>
+                    <xsd:documentation>Размер по оси Y</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="Position" type="tns:SizeType">
+                <xsd:annotation>
+                    <xsd:documentation>Позиция на соответсвующем шампуре, начиная от начала шампура</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute ref="tns:Id" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Идентификатор элеманта</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="LineType">
+        <xsd:annotation>
+            <xsd:documentation>Базовый тип для отбражения вертикальной линии</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="X" type="tns:SizeType">
+                <xsd:annotation>
+                    <xsd:documentation>Позиция центра элемента по оси X</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Y" type="tns:SizeType">
+                <xsd:annotation>
+                    <xsd:documentation>Позиция центра элемента по оси Y</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Width" type="tns:SizeType">
+                <xsd:annotation>
+                    <xsd:documentation>Длина элемента</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute ref="tns:Id" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Идентификатор элеманта</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="HorizontalLineType">
+        <xsd:annotation>
+            <xsd:documentation>Базовый тип для отбражения горизонтальной линии.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="tns:LineType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="VerticalLineType">
+        <xsd:annotation>
+            <xsd:documentation>Базовый тип для отбражения вертикальной линии.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="tns:LineType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="ArrowLineType">
+        <xsd:annotation>
+            <xsd:documentation>Базовый тип для отбражения стрелки цикла. (Рисуется c права на лево)</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="tns:LineType">
+                <xsd:sequence>
+                    <xsd:element name="ReriodRef" type="tns:ElementRefType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Идентификатор на элемент #17 Период.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="ElementRefType">
         <xsd:attribute name="URI" type="xsd:anyURI" use="required"/>
     </xsd:complexType>
 
+
+    <!--#########################################################-->
     <!-- Раздел основных элементов  -->
-    <xsd:complexType name="StartType">
+    <xsd:complexType name="TitleType">
         <xsd:annotation>
-            <xsd:documentation>Икона Начало</xsd:documentation>
+            <xsd:documentation>Икона #1. Заголовок</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="tns:IconViewType"/>
@@ -105,7 +170,7 @@
 
     <xsd:complexType name="EndType">
         <xsd:annotation>
-            <xsd:documentation>Икона Конец</xsd:documentation>
+            <xsd:documentation>Икона #2. Конец</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="tns:IconViewType"/>
@@ -114,17 +179,81 @@
 
     <xsd:complexType name="ActonType">
         <xsd:annotation>
-            <xsd:documentation>Действие</xsd:documentation>
+            <xsd:documentation>Икона #3. Действие</xsd:documentation>
         </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="tns:IconViewType"/>
+        </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:complexType name="ActonType">
+    <xsd:complexType name="QuestionType">
         <xsd:annotation>
-            <xsd:documentation>Действие</xsd:documentation>
+            <xsd:documentation>Икона #4. Вопрос</xsd:documentation>
         </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="tns:IconViewType">
+                <xsd:sequence>
+                    <xsd:element name="ShortShideLength" type="tns:SizeType">
+                        <xsd:annotation>
+                            <xsd:documentation>Размер короткой стороны</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="LianaRef" type="tns:ElementRefType">
+                        <xsd:annotation>
+                            <xsd:documentation>Горизонтальное ответвление</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="SkewerRef" type="tns:ElementRefType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Шампур</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="EndOfQuestionRef" type="tns:ElementRefType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Линия крепления иконы Вопрос</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="LoopArrowRef" type="tns:ElementRefType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Идентификатор объекта. Стрелка цикла</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="LoopArrow">
+        <xsd:annotation>
+            <xsd:documentation>Икона #24. Стрелка цикла. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="HorizontalLineRef" type="tns:ElementRefType" minOccurs="0">
+                 <xsd:annotation>
+                      <xsd:documentation>Идентификатор горизонтальной линии</xsd:documentation>
+                 </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="VerticalLineRef" type="tns:ElementRefType" minOccurs="0">
+                 <xsd:annotation>
+                      <xsd:documentation>Идентификатор линии вверх</xsd:documentation>
+                 </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="LoopArrowRef" type="tns:ElementRefType" minOccurs="0">
+                 <xsd:annotation>
+                      <xsd:documentation>Идентификатор линии влево</xsd:documentation>
+                 </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute ref="tns:Id" use="required">
+            <xsd:annotation>
+                <xsd:documentation>Идентификатор элеманта</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+    <!--#########################################################-->
 
+    <!--#########################################################-->
+    <!-- Типы диаграмм -->
     <xsd:complexType name="SkewerType">
         <xsd:annotation>
             <xsd:documentation>Тип элемента - Шампур</xsd:documentation>
@@ -132,7 +261,7 @@
         <xsd:complexContent>
             <xsd:extension  base="tns:VerticalLineType">
                 <xsd:sequence>
-                    <xsd:element name="Start" type="tns:StartType" minOccurs="0">
+                    <xsd:element name="Title" type="tns:TitleType" minOccurs="0">
                         <xsd:annotation>
                             <xsd:documentation>Начало, если есть</xsd:documentation>
                         </xsd:annotation>
@@ -152,5 +281,7 @@
         </xsd:complexContent>
     </xsd:complexType>
 
+
+    <!-- Общее определение Дракон-Схемы -->
 
 </xsd:schema>
