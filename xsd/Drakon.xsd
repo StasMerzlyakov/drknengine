@@ -238,7 +238,7 @@
                       <xsd:documentation>Идентификатор линии вверх</xsd:documentation>
                  </xsd:annotation>
             </xsd:element>
-            <xsd:element name="LoopArrowRef" type="tns:ElementRefType" minOccurs="0">
+            <xsd:element name="ArrowLineRef" type="tns:ElementRefType" minOccurs="0">
                  <xsd:annotation>
                       <xsd:documentation>Идентификатор линии влево</xsd:documentation>
                  </xsd:annotation>
@@ -256,7 +256,7 @@
     <!-- Типы диаграмм -->
     <xsd:complexType name="SkewerType">
         <xsd:annotation>
-            <xsd:documentation>Тип элемента - Шампур</xsd:documentation>
+            <xsd:documentation>Шампур</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension  base="tns:VerticalLineType">
@@ -281,7 +281,26 @@
         </xsd:complexContent>
     </xsd:complexType>
 
-
+    <xsd:complexType name="SilhouetteType">
+        <xsd:annotation>
+            <xsd:documentation>Силуэт</xsd:documentation>
+        </xsd:annotation>
+    </xsd:complexType>
+    
     <!-- Общее определение Дракон-Схемы -->
-
+    <xsd:element name="DrakonSchemaType">
+        <xsd:annotation>
+            <xsd:documentation>Схема языка Дракон</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <!-- Данные о размере изображения. Размерность изображения задает так же размерность элементов изображения -->
+                <xsd:element name="Dimension" type="tns:DimensionType"/>
+                <xsd:choice>
+                    <xsd:element name="Skewer" type="tns:SkewerType"/>
+                    <xsd:element name="Silhouette" type="tns:SilhouetteType"/>
+                </xsd:choice>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>
