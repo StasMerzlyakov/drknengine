@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<drak:DrakonSchema xmlns:drak="http://su.ztech/drakon">
+  <drak:Dimension>cm</drak:Dimension>
+  <!--You have a CHOICE of the next 2 items at this level-->
+  <drak:Elements>
+    <drak:Action drak:Id="action1">
+      <drak:X>30</drak:X>
+      <drak:Y>40</drak:Y>
+      <drak:AxisX>200</drak:AxisX>
+      <drak:AxisY>150</drak:AxisY>
+    </drak:Action>
+    <drak:End drak:Id="end1">
+      <drak:X>100</drak:X>
+      <drak:Y>100</drak:Y>
+      <drak:AxisX>30</drak:AxisX>
+      <drak:AxisY>20</drak:AxisY>
+    </drak:End>
+    <drak:Title drak:Id="title1">
+      <drak:X>10</drak:X>
+      <drak:Y>10</drak:Y>
+      <drak:AxisX>30</drak:AxisX>
+      <drak:AxisY>20</drak:AxisY>
+    </drak:Title>
+    <drak:VerticalLine drak:Id="vline1">
+      <drak:X>10</drak:X>
+      <drak:Y>10</drak:Y>
+      <drak:Width>100</drak:Width>
+      <drak:Element drak:URI="#action1"/>
+    </drak:VerticalLine>
+  </drak:Elements>
+  <drak:Skewer>
+    <drak:Title drak:URI="#title1"/>
+    <drak:VerticalLine drak:URI="#vline1"/>
+    <drak:End drak:URI="#end1"/>
+  </drak:Skewer>
+</drak:DrakonSchema>

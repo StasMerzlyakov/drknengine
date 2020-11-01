@@ -6,8 +6,8 @@ setup(
     description='DRAKON language editor and engine',
     author='Stas Merzlyakov',
     author_email='merzliakov@gmail.com',
-    packages=['drknengine'],  #same as name
-    install_requires=[], #external packages as dependencies
+    packages=['drknengine'],
+    install_requires=['lxml'],
     scripts=[
         'scripts/svgtools/svgshow.py',
     ]
