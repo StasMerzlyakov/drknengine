@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <drak:DrakonSchema xmlns:drak="http://su.ztech/drakon">
-  <drak:Dimension>cm</drak:Dimension>
+  <drak:ImageSize>
+    <drak:Dimension>px</drak:Dimension>
+    <drak:Width>400</drak:Width>
+    <drak:Height>400</drak:Height>
+  </drak:ImageSize>
   <!--You have a CHOICE of the next 2 items at this level-->
   <drak:Elements>
     <drak:Action drak:Id="action1">

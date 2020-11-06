@@ -17,6 +17,7 @@
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="mm"/>
             <xsd:enumeration value="cm"/>
+            <xsd:enumeration value="px"/>
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -36,9 +37,9 @@
             <xsd:documentation>Размер изображения</xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
+            <xsd:element name="Dimension" type="tns:DimensionType"/>
             <xsd:element name="Width" type="tns:SizeType"/>
             <xsd:element name="Height" type="tns:SizeType"/>
-            <xsd:element name="DimensionType" type="tns:DimensionType"/>
         </xsd:sequence>
     </xsd:complexType>
 
@@ -293,7 +294,7 @@
         <xsd:complexType>
             <xsd:sequence>
                 <!-- Данные о размере изображения. Размерность изображения задает так же размерность элементов изображения -->
-                <xsd:element name="Dimension" type="tns:DimensionType"/>
+                <xsd:element name="ImageSize" type="tns:ImageSizeType"/>
                 <xsd:element name="Elements">
                     <xsd:complexType>
                         <xsd:choice maxOccurs="unbounded">
