@@ -9,21 +9,21 @@
   <drak:Elements>
     <drak:Action drak:Id="action1">
       <drak:X>30</drak:X>
-      <drak:Y>40</drak:Y>
-      <drak:AxisX>200</drak:AxisX>
-      <drak:AxisY>150</drak:AxisY>
+      <drak:Y>140</drak:Y>
+      <drak:AxisX>100</drak:AxisX>
+      <drak:AxisY>40</drak:AxisY>
     </drak:Action>
     <drak:End drak:Id="end1">
       <drak:X>100</drak:X>
-      <drak:Y>100</drak:Y>
-      <drak:AxisX>30</drak:AxisX>
-      <drak:AxisY>20</drak:AxisY>
+      <drak:Y>300</drak:Y>
+      <drak:AxisX>60</drak:AxisX>
+      <drak:AxisY>30</drak:AxisY>
     </drak:End>
     <drak:Title drak:Id="title1">
-      <drak:X>10</drak:X>
+      <drak:X>30</drak:X>
       <drak:Y>10</drak:Y>
-      <drak:AxisX>30</drak:AxisX>
-      <drak:AxisY>20</drak:AxisY>
+      <drak:AxisX>80</drak:AxisX>
+      <drak:AxisY>40</drak:AxisY>
     </drak:Title>
     <drak:VerticalLine drak:Id="vline1">
       <drak:X>10</drak:X>
