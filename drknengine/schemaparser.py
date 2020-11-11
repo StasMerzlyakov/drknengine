@@ -132,23 +132,18 @@ def __parse_elements(elem):
         if child.tag == '{http://su.ztech/drakon}Action':
             obj = __parse_action(child)
             result.append('<rect x="{}" y="{}" width="{}" height="{}" class="action"/>'
-                          .format(obj['x'], obj['y'], obj['width'], obj['height']))
+                          .format(obj['x']-obj['width']/2, obj['y']-obj['height']/2, obj['width'], obj['height']))
 
         if child.tag == '{http://su.ztech/drakon}Title':
             obj = __parse_title(child)
             result.append('<rect x="{}" y="{}" width="{}" height="{}" rx="25" ry="25" class="title"/>'
-                          .format(obj['x'], obj['y'], obj['width'], obj['height']))
+                          .format(obj['x']-obj['width']/2, obj['y']-obj['height']/2, obj['width'], obj['height']))
 
         if child.tag == '{http://su.ztech/drakon}End':
             obj = __parse_end(child)
             result.append('<rect x="{}" y="{}" width="{}" height="{}" rx="15" ry="15" class="title"/>'
-                          .format(obj['x'], obj['y'], obj['width'], obj['height']))
+                          .format(obj['x']-obj['width']/2, obj['y']-obj['height']/2, obj['width'], obj['height']))
 
-
-        # if child.tag == '{http://su.ztech/drakon}Height':
-        #    result['Height'] = child.text + dim
-        # if child.tag == '{http://su.ztech/drakon}Width':
-        #    result['Width'] = child.text + dim
 
     return result
 
