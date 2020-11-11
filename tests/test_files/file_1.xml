@@ -8,27 +8,27 @@
   <!--You have a CHOICE of the next 2 items at this level-->
   <drak:Elements>
     <drak:Action drak:Id="action1">
-      <drak:X>30</drak:X>
-      <drak:Y>140</drak:Y>
+      <drak:X>40</drak:X>
+      <drak:Y>100</drak:Y>
       <drak:AxisX>100</drak:AxisX>
       <drak:AxisY>40</drak:AxisY>
     </drak:Action>
     <drak:End drak:Id="end1">
-      <drak:X>100</drak:X>
-      <drak:Y>300</drak:Y>
+      <drak:X>60</drak:X>
+      <drak:Y>200</drak:Y>
       <drak:AxisX>60</drak:AxisX>
       <drak:AxisY>30</drak:AxisY>
     </drak:End>
     <drak:Title drak:Id="title1">
-      <drak:X>30</drak:X>
+      <drak:X>50</drak:X>
       <drak:Y>10</drak:Y>
       <drak:AxisX>80</drak:AxisX>
       <drak:AxisY>40</drak:AxisY>
     </drak:Title>
     <drak:VerticalLine drak:Id="vline1">
-      <drak:X>10</drak:X>
-      <drak:Y>10</drak:Y>
-      <drak:Width>100</drak:Width>
+      <drak:X>90</drak:X>
+      <drak:Y>50</drak:Y>
+      <drak:Width>150</drak:Width>
       <drak:Element drak:URI="#action1"/>
     </drak:VerticalLine>
   </drak:Elements>

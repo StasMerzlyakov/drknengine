@@ -120,6 +120,14 @@ def __parse_elements(elem):
     assert elem.tag == '{http://su.ztech/drakon}Elements'
     result = []
 
+    # Сначала проходимся по линиям. В результате элементы в svg файле окажутся сверху линий
+    for child in elem.getchildren():
+        if child.tag == '{http://su.ztech/drakon}VerticalLine':
+            obj = __parse_vertical_line(child)
+            result.append('<line x1="{}" y1="{}" x2="{}" y2="{}" stroke="black" class="line"/>'
+                          .format(obj['x'], obj['y'], obj['x'], obj['y'] + obj['width']))
+
+
     for child in elem.getchildren():
         if child.tag == '{http://su.ztech/drakon}Action':
             obj = __parse_action(child)
@@ -136,10 +144,6 @@ def __parse_elements(elem):
             result.append('<rect x="{}" y="{}" width="{}" height="{}" rx="15" ry="15" class="title"/>'
                           .format(obj['x'], obj['y'], obj['width'], obj['height']))
 
-        if child.tag == '{http://su.ztech/drakon}VerticalLine':
-            obj = __parse_vertical_line(child)
-            result.append('<line x1="{}" y1="{}" x2="{}" y2="{}" stroke="black" class="line"/>'
-                          .format(obj['x'], obj['y'], obj['x'], obj['y'] + obj['width']))
 
         # if child.tag == '{http://su.ztech/drakon}Height':
         #    result['Height'] = child.text + dim
