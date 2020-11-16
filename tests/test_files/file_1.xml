@@ -1,40 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <drak:DrakonSchema xmlns:drak="http://su.ztech/drakon">
-  <drak:ImageSize>
-    <drak:Dimension>px</drak:Dimension>
-    <drak:Width>400</drak:Width>
-    <drak:Height>400</drak:Height>
-  </drak:ImageSize>
-  <!--You have a CHOICE of the next 2 items at this level-->
-  <drak:Elements>
-    <drak:Action drak:Id="action1">
-      <drak:X>90</drak:X>
-      <drak:Y>150</drak:Y>
-      <drak:AxisX>100</drak:AxisX>
-      <drak:AxisY>40</drak:AxisY>
-    </drak:Action>
-    <drak:End drak:Id="end1">
-      <drak:X>90</drak:X>
-      <drak:Y>245</drak:Y>
-      <drak:AxisX>60</drak:AxisX>
-      <drak:AxisY>30</drak:AxisY>
-    </drak:End>
-    <drak:Title drak:Id="title1">
-      <drak:X>90</drak:X>
-      <drak:Y>50</drak:Y>
-      <drak:AxisX>80</drak:AxisX>
-      <drak:AxisY>40</drak:AxisY>
-    </drak:Title>
-    <drak:VerticalLine drak:Id="vline1">
-      <drak:X>90</drak:X>
-      <drak:Y>70</drak:Y>
-      <drak:Width>160</drak:Width>
-      <drak:Element drak:URI="#action1"/>
-    </drak:VerticalLine>
-  </drak:Elements>
-  <drak:Skewer>
-    <drak:Title drak:URI="#title1"/>
-    <drak:VerticalLine drak:URI="#vline1"/>
-    <drak:End drak:URI="#end1"/>
-  </drak:Skewer>
+    <drak:ImageSize>
+        <drak:Dimension>px</drak:Dimension>
+        <drak:Width>600</drak:Width>
+        <drak:Height>600</drak:Height>
+    </drak:ImageSize>
+    <!--You have a CHOICE of the next 2 items at this level-->
+    <drak:Elements>
+        <drak:Action drak:Id="action1">
+            <drak:X>90</drak:X>
+            <drak:Y>120</drak:Y>
+            <drak:AxisX>100</drak:AxisX>
+            <drak:AxisY>40</drak:AxisY>
+        </drak:Action>
+        <drak:Action drak:Id="action2">
+            <drak:X>90</drak:X>
+            <drak:Y>200</drak:Y>
+            <drak:AxisX>100</drak:AxisX>
+            <drak:AxisY>40</drak:AxisY>
+        </drak:Action>
+        <drak:Action drak:Id="action3">
+            <drak:X>90</drak:X>
+            <drak:Y>280</drak:Y>
+            <drak:AxisX>100</drak:AxisX>
+            <drak:AxisY>40</drak:AxisY>
+        </drak:Action>
+        <drak:End drak:Id="end1">
+            <drak:X>90</drak:X>
+            <drak:Y>350</drak:Y>
+            <drak:AxisX>60</drak:AxisX>
+            <drak:AxisY>30</drak:AxisY>
+        </drak:End>
+        <drak:Title drak:Id="title1">
+            <drak:X>90</drak:X>
+            <drak:Y>50</drak:Y>
+            <drak:AxisX>80</drak:AxisX>
+            <drak:AxisY>40</drak:AxisY>
+        </drak:Title>
+        <drak:VerticalLine drak:Id="vline1">
+            <drak:X>90</drak:X>
+            <drak:Y>70</drak:Y>
+            <drak:Width>265</drak:Width>
+            <drak:Element drak:URI="#action1"/>
+            <drak:Element drak:URI="#action2"/>
+            <drak:Element drak:URI="#action3"/>
+        </drak:VerticalLine>
+    </drak:Elements>
+    <drak:Skewer>
+        <drak:Title drak:URI="#title1"/>
+        <drak:VerticalLine drak:URI="#vline1"/>
+        <drak:End drak:URI="#end1"/>
+    </drak:Skewer>
 </drak:DrakonSchema>
