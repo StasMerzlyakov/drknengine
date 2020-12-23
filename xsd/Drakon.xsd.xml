@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<drak:Skewer drak:Id="string" xmlns:drak="http://su.ztech/drakon">
+
+  <X>1000.000</X>
+  <Y>1000.000</Y>
+  <Height>1000.000</Height>
+  <!--Optional:-->
+  <Start drak:Id="string">
+    <X>1000.000</X>
+    <Y>1000.000</Y>
+    <AxisX>1000.000</AxisX>
+    <AxisY>1000.000</AxisY>
+    <Position>1000.000</Position>
+  </Start>
+  <!--1 or more repetitions:-->
+  <Element URI="http://www.company.org/cum/sonoras"/>
+  <!--Optional:-->
+  <End drak:Id="string">
+    <X>1000.000</X>
+    <Y>1000.000</Y>
+    <AxisX>1000.000</AxisX>
+    <AxisY>1000.000</AxisY>
+    <Position>1000.000</Position>
+  </End>
+</drak:Skewer>

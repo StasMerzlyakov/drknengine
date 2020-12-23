@@ -1,0 +1,1328 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    NUMBER
+    ID
+    INTOUT
+    TYPE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> title EOL native_library EOL variables EOL actions shelfs end EOL skewers
+Rule 2     description -> DESCRIPTION COLON SPACE string EOL
+Rule 3     skewers -> SKEWERS COLON EOL skwrs
+Rule 4     skwrs -> skewer EOL svg
+Rule 5     skwrs -> skewer EOL svg skwrs
+Rule 6     svg -> SPACE SVG COLON EOL svgdef EOL
+Rule 7     svgdef -> SPACE string EOL
+Rule 8     svgdef -> SPACE string EOL svgdef
+Rule 9     skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string
+Rule 10    skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string SPACE END
+Rule 11    actions -> ACTIONS COLON EOL EOL
+Rule 12    actions -> ACTIONS COLON EOL acts
+Rule 13    shelfs -> SHELFS COLON EOL
+Rule 14    shelfs -> SHELFS COLON EOL shlfs
+Rule 15    shlfs -> shelf EOL
+Rule 16    shlfs -> shelf EOL shlfs
+Rule 17    acts -> action EOL
+Rule 18    acts -> action EOL acts
+Rule 19    shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+Rule 20    action -> SPACE WORD COLON EOL SPACE description SPACE cblock EOL svg
+Rule 21    cblock -> CBLOCK COLON SPACE methods EOL
+Rule 22    methods -> methoddef
+Rule 23    methods -> methods EOL SPACE methoddef
+Rule 24    methoddef -> string
+Rule 25    variables -> VARIABLES COLON vars EOL
+Rule 26    vars -> <empty>
+Rule 27    vars -> var
+Rule 28    vars -> vars EOL var
+Rule 29    inout -> IN
+Rule 30    inout -> OUT
+Rule 31    vtype -> INT
+Rule 32    vtype -> BOOL
+Rule 33    var -> SPACE inout SPACE WORD SPACE vtype SPACE string
+Rule 34    title -> TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL svg
+Rule 35    native_library -> NATIVE_LIBRARY COLON SPACE WORD EOL
+Rule 36    string -> WORD
+Rule 37    string -> string SPACE WORD
+Rule 38    end -> END COLON EOL svg
+
+Terminals, with rules where they appear
+
+ACTIONS              : 11 12
+ASSIGNMENT           : 19 19
+BOOL                 : 32
+CBLOCK               : 21
+COLON                : 2 3 6 9 9 10 10 11 12 13 14 19 19 19 20 21 25 34 34 35 38
+DESCRIPTION          : 2 19
+END                  : 10 38
+EOL                  : 1 1 1 1 2 3 4 5 6 6 7 8 9 10 11 11 12 13 14 15 16 17 18 19 19 19 20 20 21 23 25 28 34 34 35 38
+EXPRESSION           : 19
+ID                   : 
+IN                   : 29
+INT                  : 31
+INTOUT               : 
+ITEMS                : 9 10
+NATIVE_LIBRARY       : 35
+NUMBER               : 
+OUT                  : 30
+SHELFS               : 13 14
+SKEWERS              : 3
+SPACE                : 2 6 7 8 9 9 9 10 10 10 10 19 19 19 19 19 19 19 19 19 20 20 20 21 23 33 33 33 33 34 34 34 35 37
+START_SKEWER         : 34
+SVG                  : 6
+TITLE                : 34
+TYPE                 : 
+VARIABLES            : 25
+WORD                 : 9 10 19 19 20 33 34 35 36 37
+error                : 
+
+Nonterminals, with rules where they appear
+
+action               : 17 18
+actions              : 1
+acts                 : 12 18
+cblock               : 20
+description          : 20 34
+end                  : 1
+inout                : 33
+methoddef            : 22 23
+methods              : 21 23
+native_library       : 1
+program              : 0
+shelf                : 15 16
+shelfs               : 1
+shlfs                : 14 16
+skewer               : 4 5
+skewers              : 1
+skwrs                : 3 5
+string               : 2 7 8 9 10 19 19 19 24 33 37
+svg                  : 4 5 19 20 34 38
+svgdef               : 6 8
+title                : 1
+var                  : 27 28
+variables            : 1
+vars                 : 25 28
+vtype                : 33
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . title EOL native_library EOL variables EOL actions shelfs end EOL skewers
+    (34) title -> . TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL svg
+
+    TITLE           shift and go to state 1
+
+    program                        shift and go to state 3
+    title                          shift and go to state 2
+
+state 1
+
+    (34) title -> TITLE . COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL svg
+
+    COLON           shift and go to state 4
+
+
+state 2
+
+    (1) program -> title . EOL native_library EOL variables EOL actions shelfs end EOL skewers
+
+    EOL             shift and go to state 5
+
+
+state 3
+
+    (0) S' -> program .
+
+
+
+state 4
+
+    (34) title -> TITLE COLON . EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL svg
+
+    EOL             shift and go to state 6
+
+
+state 5
+
+    (1) program -> title EOL . native_library EOL variables EOL actions shelfs end EOL skewers
+    (35) native_library -> . NATIVE_LIBRARY COLON SPACE WORD EOL
+
+    NATIVE_LIBRARY  shift and go to state 7
+
+    native_library                 shift and go to state 8
+
+state 6
+
+    (34) title -> TITLE COLON EOL . SPACE description SPACE START_SKEWER COLON SPACE WORD EOL svg
+
+    SPACE           shift and go to state 9
+
+
+state 7
+
+    (35) native_library -> NATIVE_LIBRARY . COLON SPACE WORD EOL
+
+    COLON           shift and go to state 10
+
+
+state 8
+
+    (1) program -> title EOL native_library . EOL variables EOL actions shelfs end EOL skewers
+
+    EOL             shift and go to state 11
+
+
+state 9
+
+    (34) title -> TITLE COLON EOL SPACE . description SPACE START_SKEWER COLON SPACE WORD EOL svg
+    (2) description -> . DESCRIPTION COLON SPACE string EOL
+
+    DESCRIPTION     shift and go to state 12
+
+    description                    shift and go to state 13
+
+state 10
+
+    (35) native_library -> NATIVE_LIBRARY COLON . SPACE WORD EOL
+
+    SPACE           shift and go to state 14
+
+
+state 11
+
+    (1) program -> title EOL native_library EOL . variables EOL actions shelfs end EOL skewers
+    (25) variables -> . VARIABLES COLON vars EOL
+
+    VARIABLES       shift and go to state 16
+
+    variables                      shift and go to state 15
+
+state 12
+
+    (2) description -> DESCRIPTION . COLON SPACE string EOL
+
+    COLON           shift and go to state 17
+
+
+state 13
+
+    (34) title -> TITLE COLON EOL SPACE description . SPACE START_SKEWER COLON SPACE WORD EOL svg
+
+    SPACE           shift and go to state 18
+
+
+state 14
+
+    (35) native_library -> NATIVE_LIBRARY COLON SPACE . WORD EOL
+
+    WORD            shift and go to state 19
+
+
+state 15
+
+    (1) program -> title EOL native_library EOL variables . EOL actions shelfs end EOL skewers
+
+    EOL             shift and go to state 20
+
+
+state 16
+
+    (25) variables -> VARIABLES . COLON vars EOL
+
+    COLON           shift and go to state 21
+
+
+state 17
+
+    (2) description -> DESCRIPTION COLON . SPACE string EOL
+
+    SPACE           shift and go to state 22
+
+
+state 18
+
+    (34) title -> TITLE COLON EOL SPACE description SPACE . START_SKEWER COLON SPACE WORD EOL svg
+
+    START_SKEWER    shift and go to state 23
+
+
+state 19
+
+    (35) native_library -> NATIVE_LIBRARY COLON SPACE WORD . EOL
+
+    EOL             shift and go to state 24
+
+
+state 20
+
+    (1) program -> title EOL native_library EOL variables EOL . actions shelfs end EOL skewers
+    (11) actions -> . ACTIONS COLON EOL EOL
+    (12) actions -> . ACTIONS COLON EOL acts
+
+    ACTIONS         shift and go to state 26
+
+    actions                        shift and go to state 25
+
+state 21
+
+    (25) variables -> VARIABLES COLON . vars EOL
+    (26) vars -> .
+    (27) vars -> . var
+    (28) vars -> . vars EOL var
+    (33) var -> . SPACE inout SPACE WORD SPACE vtype SPACE string
+
+    EOL             reduce using rule 26 (vars -> .)
+    SPACE           shift and go to state 29
+
+    vars                           shift and go to state 27
+    var                            shift and go to state 28
+
+state 22
+
+    (2) description -> DESCRIPTION COLON SPACE . string EOL
+    (36) string -> . WORD
+    (37) string -> . string SPACE WORD
+
+    WORD            shift and go to state 30
+
+    string                         shift and go to state 31
+
+state 23
+
+    (34) title -> TITLE COLON EOL SPACE description SPACE START_SKEWER . COLON SPACE WORD EOL svg
+
+    COLON           shift and go to state 32
+
+
+state 24
+
+    (35) native_library -> NATIVE_LIBRARY COLON SPACE WORD EOL .
+
+    EOL             reduce using rule 35 (native_library -> NATIVE_LIBRARY COLON SPACE WORD EOL .)
+
+
+state 25
+
+    (1) program -> title EOL native_library EOL variables EOL actions . shelfs end EOL skewers
+    (13) shelfs -> . SHELFS COLON EOL
+    (14) shelfs -> . SHELFS COLON EOL shlfs
+
+    SHELFS          shift and go to state 34
+
+    shelfs                         shift and go to state 33
+
+state 26
+
+    (11) actions -> ACTIONS . COLON EOL EOL
+    (12) actions -> ACTIONS . COLON EOL acts
+
+    COLON           shift and go to state 35
+
+
+state 27
+
+    (25) variables -> VARIABLES COLON vars . EOL
+    (28) vars -> vars . EOL var
+
+    EOL             shift and go to state 36
+
+
+state 28
+
+    (27) vars -> var .
+
+    EOL             reduce using rule 27 (vars -> var .)
+
+
+state 29
+
+    (33) var -> SPACE . inout SPACE WORD SPACE vtype SPACE string
+    (29) inout -> . IN
+    (30) inout -> . OUT
+
+    IN              shift and go to state 38
+    OUT             shift and go to state 37
+
+    inout                          shift and go to state 39
+
+state 30
+
+    (36) string -> WORD .
+
+    SPACE           reduce using rule 36 (string -> WORD .)
+    EOL             reduce using rule 36 (string -> WORD .)
+
+
+state 31
+
+    (2) description -> DESCRIPTION COLON SPACE string . EOL
+    (37) string -> string . SPACE WORD
+
+    EOL             shift and go to state 40
+    SPACE           shift and go to state 41
+
+
+state 32
+
+    (34) title -> TITLE COLON EOL SPACE description SPACE START_SKEWER COLON . SPACE WORD EOL svg
+
+    SPACE           shift and go to state 42
+
+
+state 33
+
+    (1) program -> title EOL native_library EOL variables EOL actions shelfs . end EOL skewers
+    (38) end -> . END COLON EOL svg
+
+    END             shift and go to state 43
+
+    end                            shift and go to state 44
+
+state 34
+
+    (13) shelfs -> SHELFS . COLON EOL
+    (14) shelfs -> SHELFS . COLON EOL shlfs
+
+    COLON           shift and go to state 45
+
+
+state 35
+
+    (11) actions -> ACTIONS COLON . EOL EOL
+    (12) actions -> ACTIONS COLON . EOL acts
+
+    EOL             shift and go to state 46
+
+
+state 36
+
+    (25) variables -> VARIABLES COLON vars EOL .
+    (28) vars -> vars EOL . var
+    (33) var -> . SPACE inout SPACE WORD SPACE vtype SPACE string
+
+    EOL             reduce using rule 25 (variables -> VARIABLES COLON vars EOL .)
+    SPACE           shift and go to state 29
+
+    var                            shift and go to state 47
+
+state 37
+
+    (30) inout -> OUT .
+
+    SPACE           reduce using rule 30 (inout -> OUT .)
+
+
+state 38
+
+    (29) inout -> IN .
+
+    SPACE           reduce using rule 29 (inout -> IN .)
+
+
+state 39
+
+    (33) var -> SPACE inout . SPACE WORD SPACE vtype SPACE string
+
+    SPACE           shift and go to state 48
+
+
+state 40
+
+    (2) description -> DESCRIPTION COLON SPACE string EOL .
+
+    SPACE           reduce using rule 2 (description -> DESCRIPTION COLON SPACE string EOL .)
+
+
+state 41
+
+    (37) string -> string SPACE . WORD
+
+    WORD            shift and go to state 49
+
+
+state 42
+
+    (34) title -> TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE . WORD EOL svg
+
+    WORD            shift and go to state 50
+
+
+state 43
+
+    (38) end -> END . COLON EOL svg
+
+    COLON           shift and go to state 51
+
+
+state 44
+
+    (1) program -> title EOL native_library EOL variables EOL actions shelfs end . EOL skewers
+
+    EOL             shift and go to state 52
+
+
+state 45
+
+    (13) shelfs -> SHELFS COLON . EOL
+    (14) shelfs -> SHELFS COLON . EOL shlfs
+
+    EOL             shift and go to state 53
+
+
+state 46
+
+    (11) actions -> ACTIONS COLON EOL . EOL
+    (12) actions -> ACTIONS COLON EOL . acts
+    (17) acts -> . action EOL
+    (18) acts -> . action EOL acts
+    (20) action -> . SPACE WORD COLON EOL SPACE description SPACE cblock EOL svg
+
+    EOL             shift and go to state 54
+    SPACE           shift and go to state 57
+
+    action                         shift and go to state 56
+    acts                           shift and go to state 55
+
+state 47
+
+    (28) vars -> vars EOL var .
+
+    EOL             reduce using rule 28 (vars -> vars EOL var .)
+
+
+state 48
+
+    (33) var -> SPACE inout SPACE . WORD SPACE vtype SPACE string
+
+    WORD            shift and go to state 58
+
+
+state 49
+
+    (37) string -> string SPACE WORD .
+
+    SPACE           reduce using rule 37 (string -> string SPACE WORD .)
+    EOL             reduce using rule 37 (string -> string SPACE WORD .)
+
+
+state 50
+
+    (34) title -> TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD . EOL svg
+
+    EOL             shift and go to state 59
+
+
+state 51
+
+    (38) end -> END COLON . EOL svg
+
+    EOL             shift and go to state 60
+
+
+state 52
+
+    (1) program -> title EOL native_library EOL variables EOL actions shelfs end EOL . skewers
+    (3) skewers -> . SKEWERS COLON EOL skwrs
+
+    SKEWERS         shift and go to state 62
+
+    skewers                        shift and go to state 61
+
+state 53
+
+    (13) shelfs -> SHELFS COLON EOL .
+    (14) shelfs -> SHELFS COLON EOL . shlfs
+    (15) shlfs -> . shelf EOL
+    (16) shlfs -> . shelf EOL shlfs
+    (19) shelf -> . SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    END             reduce using rule 13 (shelfs -> SHELFS COLON EOL .)
+    SPACE           shift and go to state 64
+
+    shelf                          shift and go to state 63
+    shlfs                          shift and go to state 65
+
+state 54
+
+    (11) actions -> ACTIONS COLON EOL EOL .
+
+    SHELFS          reduce using rule 11 (actions -> ACTIONS COLON EOL EOL .)
+
+
+state 55
+
+    (12) actions -> ACTIONS COLON EOL acts .
+
+    SHELFS          reduce using rule 12 (actions -> ACTIONS COLON EOL acts .)
+
+
+state 56
+
+    (17) acts -> action . EOL
+    (18) acts -> action . EOL acts
+
+    EOL             shift and go to state 66
+
+
+state 57
+
+    (20) action -> SPACE . WORD COLON EOL SPACE description SPACE cblock EOL svg
+
+    WORD            shift and go to state 67
+
+
+state 58
+
+    (33) var -> SPACE inout SPACE WORD . SPACE vtype SPACE string
+
+    SPACE           shift and go to state 68
+
+
+state 59
+
+    (34) title -> TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL . svg
+    (6) svg -> . SPACE SVG COLON EOL svgdef EOL
+
+    SPACE           shift and go to state 70
+
+    svg                            shift and go to state 69
+
+state 60
+
+    (38) end -> END COLON EOL . svg
+    (6) svg -> . SPACE SVG COLON EOL svgdef EOL
+
+    SPACE           shift and go to state 70
+
+    svg                            shift and go to state 71
+
+state 61
+
+    (1) program -> title EOL native_library EOL variables EOL actions shelfs end EOL skewers .
+
+    $end            reduce using rule 1 (program -> title EOL native_library EOL variables EOL actions shelfs end EOL skewers .)
+
+
+state 62
+
+    (3) skewers -> SKEWERS . COLON EOL skwrs
+
+    COLON           shift and go to state 72
+
+
+state 63
+
+    (15) shlfs -> shelf . EOL
+    (16) shlfs -> shelf . EOL shlfs
+
+    EOL             shift and go to state 73
+
+
+state 64
+
+    (19) shelf -> SPACE . WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    WORD            shift and go to state 74
+
+
+state 65
+
+    (14) shelfs -> SHELFS COLON EOL shlfs .
+
+    END             reduce using rule 14 (shelfs -> SHELFS COLON EOL shlfs .)
+
+
+state 66
+
+    (17) acts -> action EOL .
+    (18) acts -> action EOL . acts
+    (17) acts -> . action EOL
+    (18) acts -> . action EOL acts
+    (20) action -> . SPACE WORD COLON EOL SPACE description SPACE cblock EOL svg
+
+    SHELFS          reduce using rule 17 (acts -> action EOL .)
+    SPACE           shift and go to state 57
+
+    action                         shift and go to state 56
+    acts                           shift and go to state 75
+
+state 67
+
+    (20) action -> SPACE WORD . COLON EOL SPACE description SPACE cblock EOL svg
+
+    COLON           shift and go to state 76
+
+
+state 68
+
+    (33) var -> SPACE inout SPACE WORD SPACE . vtype SPACE string
+    (31) vtype -> . INT
+    (32) vtype -> . BOOL
+
+    INT             shift and go to state 79
+    BOOL            shift and go to state 77
+
+    vtype                          shift and go to state 78
+
+state 69
+
+    (34) title -> TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL svg .
+
+    EOL             reduce using rule 34 (title -> TITLE COLON EOL SPACE description SPACE START_SKEWER COLON SPACE WORD EOL svg .)
+
+
+state 70
+
+    (6) svg -> SPACE . SVG COLON EOL svgdef EOL
+
+    SVG             shift and go to state 80
+
+
+state 71
+
+    (38) end -> END COLON EOL svg .
+
+    EOL             reduce using rule 38 (end -> END COLON EOL svg .)
+
+
+state 72
+
+    (3) skewers -> SKEWERS COLON . EOL skwrs
+
+    EOL             shift and go to state 81
+
+
+state 73
+
+    (15) shlfs -> shelf EOL .
+    (16) shlfs -> shelf EOL . shlfs
+    (15) shlfs -> . shelf EOL
+    (16) shlfs -> . shelf EOL shlfs
+    (19) shelf -> . SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    END             reduce using rule 15 (shlfs -> shelf EOL .)
+    SPACE           shift and go to state 64
+
+    shelf                          shift and go to state 63
+    shlfs                          shift and go to state 82
+
+state 74
+
+    (19) shelf -> SPACE WORD . COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    COLON           shift and go to state 83
+
+
+state 75
+
+    (18) acts -> action EOL acts .
+
+    SHELFS          reduce using rule 18 (acts -> action EOL acts .)
+
+
+state 76
+
+    (20) action -> SPACE WORD COLON . EOL SPACE description SPACE cblock EOL svg
+
+    EOL             shift and go to state 84
+
+
+state 77
+
+    (32) vtype -> BOOL .
+
+    SPACE           reduce using rule 32 (vtype -> BOOL .)
+
+
+state 78
+
+    (33) var -> SPACE inout SPACE WORD SPACE vtype . SPACE string
+
+    SPACE           shift and go to state 85
+
+
+state 79
+
+    (31) vtype -> INT .
+
+    SPACE           reduce using rule 31 (vtype -> INT .)
+
+
+state 80
+
+    (6) svg -> SPACE SVG . COLON EOL svgdef EOL
+
+    COLON           shift and go to state 86
+
+
+state 81
+
+    (3) skewers -> SKEWERS COLON EOL . skwrs
+    (4) skwrs -> . skewer EOL svg
+    (5) skwrs -> . skewer EOL svg skwrs
+    (9) skewer -> . SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string
+    (10) skewer -> . SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string SPACE END
+
+    SPACE           shift and go to state 88
+
+    skewer                         shift and go to state 89
+    skwrs                          shift and go to state 87
+
+state 82
+
+    (16) shlfs -> shelf EOL shlfs .
+
+    END             reduce using rule 16 (shlfs -> shelf EOL shlfs .)
+
+
+state 83
+
+    (19) shelf -> SPACE WORD COLON . EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    EOL             shift and go to state 90
+
+
+state 84
+
+    (20) action -> SPACE WORD COLON EOL . SPACE description SPACE cblock EOL svg
+
+    SPACE           shift and go to state 91
+
+
+state 85
+
+    (33) var -> SPACE inout SPACE WORD SPACE vtype SPACE . string
+    (36) string -> . WORD
+    (37) string -> . string SPACE WORD
+
+    WORD            shift and go to state 30
+
+    string                         shift and go to state 92
+
+state 86
+
+    (6) svg -> SPACE SVG COLON . EOL svgdef EOL
+
+    EOL             shift and go to state 93
+
+
+state 87
+
+    (3) skewers -> SKEWERS COLON EOL skwrs .
+
+    $end            reduce using rule 3 (skewers -> SKEWERS COLON EOL skwrs .)
+
+
+state 88
+
+    (9) skewer -> SPACE . WORD COLON EOL SPACE ITEMS COLON SPACE string
+    (10) skewer -> SPACE . WORD COLON EOL SPACE ITEMS COLON SPACE string SPACE END
+
+    WORD            shift and go to state 94
+
+
+state 89
+
+    (4) skwrs -> skewer . EOL svg
+    (5) skwrs -> skewer . EOL svg skwrs
+
+    EOL             shift and go to state 95
+
+
+state 90
+
+    (19) shelf -> SPACE WORD COLON EOL . SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    SPACE           shift and go to state 96
+
+
+state 91
+
+    (20) action -> SPACE WORD COLON EOL SPACE . description SPACE cblock EOL svg
+    (2) description -> . DESCRIPTION COLON SPACE string EOL
+
+    DESCRIPTION     shift and go to state 12
+
+    description                    shift and go to state 97
+
+state 92
+
+    (33) var -> SPACE inout SPACE WORD SPACE vtype SPACE string .
+    (37) string -> string . SPACE WORD
+
+    EOL             reduce using rule 33 (var -> SPACE inout SPACE WORD SPACE vtype SPACE string .)
+    SPACE           shift and go to state 41
+
+
+state 93
+
+    (6) svg -> SPACE SVG COLON EOL . svgdef EOL
+    (7) svgdef -> . SPACE string EOL
+    (8) svgdef -> . SPACE string EOL svgdef
+
+    SPACE           shift and go to state 99
+
+    svgdef                         shift and go to state 98
+
+state 94
+
+    (9) skewer -> SPACE WORD . COLON EOL SPACE ITEMS COLON SPACE string
+    (10) skewer -> SPACE WORD . COLON EOL SPACE ITEMS COLON SPACE string SPACE END
+
+    COLON           shift and go to state 100
+
+
+state 95
+
+    (4) skwrs -> skewer EOL . svg
+    (5) skwrs -> skewer EOL . svg skwrs
+    (6) svg -> . SPACE SVG COLON EOL svgdef EOL
+
+    SPACE           shift and go to state 70
+
+    svg                            shift and go to state 101
+
+state 96
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE . DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    DESCRIPTION     shift and go to state 102
+
+
+state 97
+
+    (20) action -> SPACE WORD COLON EOL SPACE description . SPACE cblock EOL svg
+
+    SPACE           shift and go to state 103
+
+
+state 98
+
+    (6) svg -> SPACE SVG COLON EOL svgdef . EOL
+
+    EOL             shift and go to state 104
+
+
+state 99
+
+    (7) svgdef -> SPACE . string EOL
+    (8) svgdef -> SPACE . string EOL svgdef
+    (36) string -> . WORD
+    (37) string -> . string SPACE WORD
+
+    WORD            shift and go to state 30
+
+    string                         shift and go to state 105
+
+state 100
+
+    (9) skewer -> SPACE WORD COLON . EOL SPACE ITEMS COLON SPACE string
+    (10) skewer -> SPACE WORD COLON . EOL SPACE ITEMS COLON SPACE string SPACE END
+
+    EOL             shift and go to state 106
+
+
+state 101
+
+    (4) skwrs -> skewer EOL svg .
+    (5) skwrs -> skewer EOL svg . skwrs
+    (4) skwrs -> . skewer EOL svg
+    (5) skwrs -> . skewer EOL svg skwrs
+    (9) skewer -> . SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string
+    (10) skewer -> . SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string SPACE END
+
+    $end            reduce using rule 4 (skwrs -> skewer EOL svg .)
+    SPACE           shift and go to state 88
+
+    skewer                         shift and go to state 89
+    skwrs                          shift and go to state 107
+
+state 102
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION . COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    COLON           shift and go to state 108
+
+
+state 103
+
+    (20) action -> SPACE WORD COLON EOL SPACE description SPACE . cblock EOL svg
+    (21) cblock -> . CBLOCK COLON SPACE methods EOL
+
+    CBLOCK          shift and go to state 109
+
+    cblock                         shift and go to state 110
+
+state 104
+
+    (6) svg -> SPACE SVG COLON EOL svgdef EOL .
+
+    EOL             reduce using rule 6 (svg -> SPACE SVG COLON EOL svgdef EOL .)
+    SPACE           reduce using rule 6 (svg -> SPACE SVG COLON EOL svgdef EOL .)
+    $end            reduce using rule 6 (svg -> SPACE SVG COLON EOL svgdef EOL .)
+
+
+state 105
+
+    (7) svgdef -> SPACE string . EOL
+    (8) svgdef -> SPACE string . EOL svgdef
+    (37) string -> string . SPACE WORD
+
+    EOL             shift and go to state 111
+    SPACE           shift and go to state 41
+
+
+state 106
+
+    (9) skewer -> SPACE WORD COLON EOL . SPACE ITEMS COLON SPACE string
+    (10) skewer -> SPACE WORD COLON EOL . SPACE ITEMS COLON SPACE string SPACE END
+
+    SPACE           shift and go to state 112
+
+
+state 107
+
+    (5) skwrs -> skewer EOL svg skwrs .
+
+    $end            reduce using rule 5 (skwrs -> skewer EOL svg skwrs .)
+
+
+state 108
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON . SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    SPACE           shift and go to state 113
+
+
+state 109
+
+    (21) cblock -> CBLOCK . COLON SPACE methods EOL
+
+    COLON           shift and go to state 114
+
+
+state 110
+
+    (20) action -> SPACE WORD COLON EOL SPACE description SPACE cblock . EOL svg
+
+    EOL             shift and go to state 115
+
+
+state 111
+
+    (7) svgdef -> SPACE string EOL .
+    (8) svgdef -> SPACE string EOL . svgdef
+    (7) svgdef -> . SPACE string EOL
+    (8) svgdef -> . SPACE string EOL svgdef
+
+    EOL             reduce using rule 7 (svgdef -> SPACE string EOL .)
+    SPACE           shift and go to state 99
+
+    svgdef                         shift and go to state 116
+
+state 112
+
+    (9) skewer -> SPACE WORD COLON EOL SPACE . ITEMS COLON SPACE string
+    (10) skewer -> SPACE WORD COLON EOL SPACE . ITEMS COLON SPACE string SPACE END
+
+    ITEMS           shift and go to state 117
+
+
+state 113
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE . string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+    (36) string -> . WORD
+    (37) string -> . string SPACE WORD
+
+    WORD            shift and go to state 30
+
+    string                         shift and go to state 118
+
+state 114
+
+    (21) cblock -> CBLOCK COLON . SPACE methods EOL
+
+    SPACE           shift and go to state 119
+
+
+state 115
+
+    (20) action -> SPACE WORD COLON EOL SPACE description SPACE cblock EOL . svg
+    (6) svg -> . SPACE SVG COLON EOL svgdef EOL
+
+    SPACE           shift and go to state 70
+
+    svg                            shift and go to state 120
+
+state 116
+
+    (8) svgdef -> SPACE string EOL svgdef .
+
+    EOL             reduce using rule 8 (svgdef -> SPACE string EOL svgdef .)
+
+
+state 117
+
+    (9) skewer -> SPACE WORD COLON EOL SPACE ITEMS . COLON SPACE string
+    (10) skewer -> SPACE WORD COLON EOL SPACE ITEMS . COLON SPACE string SPACE END
+
+    COLON           shift and go to state 121
+
+
+state 118
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string . SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+    (37) string -> string . SPACE WORD
+
+    SPACE           shift and go to state 122
+
+
+state 119
+
+    (21) cblock -> CBLOCK COLON SPACE . methods EOL
+    (22) methods -> . methoddef
+    (23) methods -> . methods EOL SPACE methoddef
+    (24) methoddef -> . string
+    (36) string -> . WORD
+    (37) string -> . string SPACE WORD
+
+    WORD            shift and go to state 30
+
+    methoddef                      shift and go to state 125
+    methods                        shift and go to state 123
+    string                         shift and go to state 124
+
+state 120
+
+    (20) action -> SPACE WORD COLON EOL SPACE description SPACE cblock EOL svg .
+
+    EOL             reduce using rule 20 (action -> SPACE WORD COLON EOL SPACE description SPACE cblock EOL svg .)
+
+
+state 121
+
+    (9) skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON . SPACE string
+    (10) skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON . SPACE string SPACE END
+
+    SPACE           shift and go to state 126
+
+
+state 122
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE . ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+    (37) string -> string SPACE . WORD
+
+    ASSIGNMENT      shift and go to state 127
+    WORD            shift and go to state 49
+
+
+state 123
+
+    (21) cblock -> CBLOCK COLON SPACE methods . EOL
+    (23) methods -> methods . EOL SPACE methoddef
+
+    EOL             shift and go to state 128
+
+
+state 124
+
+    (24) methoddef -> string .
+    (37) string -> string . SPACE WORD
+
+    EOL             reduce using rule 24 (methoddef -> string .)
+    SPACE           shift and go to state 41
+
+
+state 125
+
+    (22) methods -> methoddef .
+
+    EOL             reduce using rule 22 (methods -> methoddef .)
+
+
+state 126
+
+    (9) skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON SPACE . string
+    (10) skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON SPACE . string SPACE END
+    (36) string -> . WORD
+    (37) string -> . string SPACE WORD
+
+    WORD            shift and go to state 30
+
+    string                         shift and go to state 129
+
+state 127
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT . SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    SPACE           shift and go to state 130
+
+
+state 128
+
+    (21) cblock -> CBLOCK COLON SPACE methods EOL .
+    (23) methods -> methods EOL . SPACE methoddef
+
+    EOL             reduce using rule 21 (cblock -> CBLOCK COLON SPACE methods EOL .)
+    SPACE           shift and go to state 131
+
+
+state 129
+
+    (9) skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string .
+    (10) skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string . SPACE END
+    (37) string -> string . SPACE WORD
+
+    EOL             reduce using rule 9 (skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string .)
+    SPACE           shift and go to state 132
+
+
+state 130
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE . string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+    (36) string -> . WORD
+    (37) string -> . string SPACE WORD
+
+    WORD            shift and go to state 30
+
+    string                         shift and go to state 133
+
+state 131
+
+    (23) methods -> methods EOL SPACE . methoddef
+    (24) methoddef -> . string
+    (36) string -> . WORD
+    (37) string -> . string SPACE WORD
+
+    WORD            shift and go to state 30
+
+    methoddef                      shift and go to state 134
+    string                         shift and go to state 124
+
+state 132
+
+    (10) skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string SPACE . END
+    (37) string -> string SPACE . WORD
+
+    END             shift and go to state 135
+    WORD            shift and go to state 49
+
+
+state 133
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string . EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+    (37) string -> string . SPACE WORD
+
+    EOL             shift and go to state 136
+    SPACE           shift and go to state 41
+
+
+state 134
+
+    (23) methods -> methods EOL SPACE methoddef .
+
+    EOL             reduce using rule 23 (methods -> methods EOL SPACE methoddef .)
+
+
+state 135
+
+    (10) skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string SPACE END .
+
+    EOL             reduce using rule 10 (skewer -> SPACE WORD COLON EOL SPACE ITEMS COLON SPACE string SPACE END .)
+
+
+state 136
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL . SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    SPACE           shift and go to state 137
+
+
+state 137
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE . EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    EXPRESSION      shift and go to state 138
+
+
+state 138
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION . COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    COLON           shift and go to state 139
+
+
+state 139
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON . SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    SPACE           shift and go to state 140
+
+
+state 140
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE . WORD SPACE ASSIGNMENT SPACE string EOL svg
+
+    WORD            shift and go to state 141
+
+
+state 141
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD . SPACE ASSIGNMENT SPACE string EOL svg
+
+    SPACE           shift and go to state 142
+
+
+state 142
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE . ASSIGNMENT SPACE string EOL svg
+
+    ASSIGNMENT      shift and go to state 143
+
+
+state 143
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT . SPACE string EOL svg
+
+    SPACE           shift and go to state 144
+
+
+state 144
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE . string EOL svg
+    (36) string -> . WORD
+    (37) string -> . string SPACE WORD
+
+    WORD            shift and go to state 30
+
+    string                         shift and go to state 145
+
+state 145
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string . EOL svg
+    (37) string -> string . SPACE WORD
+
+    EOL             shift and go to state 146
+    SPACE           shift and go to state 41
+
+
+state 146
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL . svg
+    (6) svg -> . SPACE SVG COLON EOL svgdef EOL
+
+    SPACE           shift and go to state 70
+
+    svg                            shift and go to state 147
+
+state 147
+
+    (19) shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg .
+
+    EOL             reduce using rule 19 (shelf -> SPACE WORD COLON EOL SPACE DESCRIPTION COLON SPACE string SPACE ASSIGNMENT SPACE string EOL SPACE EXPRESSION COLON SPACE WORD SPACE ASSIGNMENT SPACE string EOL svg .)
+
