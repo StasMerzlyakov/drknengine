@@ -1,0 +1,5 @@
+1. https://github.com/tpope/vim-pathogen
+2. cp update_bundles ~/.vim && chmod +x ~/.vim/update_bundles
+3. cat vimrc >> ~/.vimrc
+
+
