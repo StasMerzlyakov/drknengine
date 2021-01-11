@@ -6,7 +6,6 @@
 
 export default {
   name: 'DrakonEditor',
-  inject: ['SVG'],
   data() {
     return {
         size: 600,
@@ -45,7 +44,7 @@ export default {
         this.size
       ].join(" ");
       //creating canvas and starting to creating the geometry
-      var canvas = this.SVG().addTo('#svg')
+      var canvas = this.$SVG().addTo('#svg')
           .size(800, 800),
           //.panZoom({ zoomMin: 0.2, zoomMax: 20 }),
         circle = canvas
