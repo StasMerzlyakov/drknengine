@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
 git_bundles = [ 
-  "https://github.com/mattn/emmet-vim.git"
+  "https://github.com/mattn/emmet-vim.git",
+  "https://github.com/leafgarland/typescript-vim.git"
 ]
 
 vim_org_scripts = [
