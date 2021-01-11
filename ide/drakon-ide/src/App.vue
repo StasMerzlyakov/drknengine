@@ -1,6 +1,6 @@
 <template>
   <img alt="DRAKON Engine" src="./assets/drakosha104.png">
-  <DrakonEditor msg="Welcome to Your Vue.js App"/>
+  <DrakonEditor/>
 </template>
 
 <script>

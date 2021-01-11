@@ -1,4 +1,12 @@
-import { createApp } from 'vue'
+import { defineComponent, createApp } from 'vue'
 import App from './App.vue'
+import svgJS from '@/plugins/svg.js'
 
-createApp(App).mount('#app')
+// export global Vue
+export default defineComponent({
+
+})
+const app = createApp(App)
+
+app.use(svgJS)
+app.mount('#app')
