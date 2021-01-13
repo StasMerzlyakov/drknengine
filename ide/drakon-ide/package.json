@@ -13,7 +13,8 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "jquery": "^3.5.1",
-    "vue": "^2.5.18"
+    "vue": "^2.5.18",
+    "vue-i18n": "^8.22.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
