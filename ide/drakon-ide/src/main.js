@@ -11,7 +11,7 @@ Vue.use(VueI18n)
 const i18n = new VueI18n({
     locale: 'ru',
     messages: {
-        'en': {
+        en: {
             messages: {
                 editor_name: 'DRAKON Editor',
 		locale: 'Lang',
@@ -19,7 +19,7 @@ const i18n = new VueI18n({
             }
 
 	},
-	'ru': {
+	ru: {
             messages: {
                 editor_name: 'Редактор схем',
 		locale: 'Язык'
@@ -29,7 +29,7 @@ const i18n = new VueI18n({
 })
 
 
-new Vue({
+const app = new Vue({
     i18n,
     render: h => h(App),
     data () {
@@ -41,6 +41,8 @@ new Vue({
             i18n.setLocaleMessage(locale);
         }
     }
-}).$mount('#app')
+})
+
+app.$mount('#app')
 
 

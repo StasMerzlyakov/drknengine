@@ -18,7 +18,6 @@
                     </b-nav-form> -->
             
                      <b-nav-item-dropdown :text="$t('messages.locale')" right>
-                  <!--    <b-dropdown-item href="#" v-for="(lang, index) in langs" :key="index"  v-on:click="$i18n.setLocaleMessage(lang)" :value="lang">{{ lang }}</b-dropdown-item> -->
                        <b-dropdown-item href="#" v-for="(lang, index) in langs" :key="index"  v-on:click="setLocale(lang)" :value="lang">{{ lang }}</b-dropdown-item>
                      </b-nav-item-dropdown>
                    </b-navbar-nav>
@@ -42,7 +41,7 @@ export default {
   },
   methods: {
     setLocale (locale) {
-       console.log(locale);
+       this.$i18n.locale=locale;
     }
   }
 }
