@@ -8,3 +8,4 @@ drknengine.egg-info/
 *.pyc
 svg.xml
 *.swp
+.gradle
