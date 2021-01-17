@@ -1,0 +1,27 @@
+<idea-plugin>
+  <id>com.your.company.unique.plugin.id</id>
+  <name>DRAKON IDE</name>
+  <version>1.0</version>
+  <vendor email="support@ztech.org" url="http://www.ztech.org">ZTech LTD</vendor>
+
+  <description><![CDATA[Плагин для разработки диаграм на языке Дракон с интеграцией с jvm]]></description>
+
+  <change-notes><![CDATA[Инициализация]]></change-notes>
+
+  <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+    <moduleService serviceInterface="org.ztech.drakonide.IDrakonService" serviceImplementation="org.ztech.drakonide.DrakonModel"/>
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>
