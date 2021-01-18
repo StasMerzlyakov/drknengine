@@ -3,7 +3,7 @@
     <name>DRAKON IDE</name>
     <vendor email="support@ztech.org" url="http://www.ztech.org">ZTech</vendor>
 
-    <description><![CDATA[DRAKON IDE for java development. Icon editor and debug tool]]></description>
+    <description><![CDATA[DRAKON IDE for java development. Schema editor and debug tool]]></description>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
